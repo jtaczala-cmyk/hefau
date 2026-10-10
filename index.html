@@ -2409,6 +2409,8 @@ function netLeave() { netStop(false); netSession(null); try { history.replaceSta
 function netWatch() {
   if (!NET.on) return; var now = Date.now();
   if (NET.peer && !NET.lost && now - NET.lastPeer > 7000) { NET.lost = true; netBar(); if (isOnline()) banner(t('oppLost'), '', 2200); renderUI(); }
+  // nothing heard for a while although our socket looks joined: the Realtime channel can go silently stale, so open a fresh socket and rejoin (host re-announces, guest says hello -> resync)
+  if (NET.lost && NET.joined && now - NET.lastPeer > 12000 && now - (NET.reT || 0) > 15000) { NET.reT = now; netConnect(); }
 }
 function peerSeen(m) {
   var was = NET.lost; NET.lastPeer = Date.now();

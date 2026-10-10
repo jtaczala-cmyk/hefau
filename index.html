@@ -346,6 +346,13 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
   animation:cbBreath 6.2s ease-in-out infinite,cbShine 8.3s ease-in-out infinite;will-change:transform}
 @keyframes cbShine{0%,72%{background-position:115% 0}100%{background-position:-15% 0}}
 @media (prefers-reduced-motion:reduce){#cbShine{animation:none;display:none}}
+/* v7 board: background recedes into the page (soft round vignette, no square edge) */
+#bgL{-webkit-mask-image:radial-gradient(farthest-side,#000 72%,transparent 100%);mask-image:radial-gradient(farthest-side,#000 72%,transparent 100%)}
+
+.plaque{position:absolute;transform:translate(-50%,-50%);pointer-events:none;z-index:2;display:flex;flex-direction:column;align-items:center;line-height:1.05;padding:.25em .6em .3em;border-radius:.35em;
+  background:linear-gradient(180deg,#f6dc8e,#c99434 55%,#8a5a14);border:1px solid #3a2206;box-shadow:0 0 0 1px rgba(255,236,170,.6) inset,0 2px 6px rgba(0,0,0,.65),0 0 10px rgba(63,224,208,.25);
+  font-family:var(--deco);color:#2a1604;text-shadow:0 1px 0 rgba(255,245,210,.6);white-space:nowrap}
+.plaque b{font-size:1em;letter-spacing:.06em}.plaque small{font-size:.72em;letter-spacing:.08em;font-weight:700}
 
 </style>
 </head>
@@ -363,7 +370,7 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
     <div class="pl" data-p="1"><img class="av" alt="" /><div class="pinfo"><div class="nm"><span class="pn"></span></div><div class="tray"></div><div class="prog"><i></i></div></div></div>
   </section>
   <section id="boardWrap">
-    <div id="stage"><canvas id="bgL" class="lay"></canvas><canvas id="ringL" class="lay"></canvas><canvas id="bodyL" class="lay"></canvas><canvas id="sunL"></canvas><div id="cobra" aria-hidden="true"><canvas id="cbHood"></canvas><div id="cbShine"></div><canvas id="cbTongue"></canvas><canvas id="cbHead"></canvas><canvas id="cbEyes"></canvas></div><canvas id="board"></canvas><div id="netBar" hidden><i></i><span></span></div></div>
+    <div id="stage"><canvas id="bgL" class="lay"></canvas><canvas id="ringL" class="lay"></canvas><canvas id="bodyL" class="lay"></canvas><canvas id="sunL"></canvas><div id="cobra" aria-hidden="true"><canvas id="cbHood"></canvas><div id="cbShine"></div><canvas id="cbTongue"></canvas><canvas id="cbHead"></canvas><canvas id="cbEyes"></canvas></div><div id="plStart" class="plaque" aria-hidden="true"><b data-t="plStartA">START</b><small data-t="plStartB"></small></div><div id="plGoal" class="plaque" aria-hidden="true"><b data-t="plGoalA"></b><small data-t="plGoalB"></small></div><canvas id="board"></canvas><div id="netBar" hidden><i></i><span></span></div></div>
     <div id="throwFx"><canvas id="throwCv" width="720" height="343"></canvas></div>
     <div id="banner"></div>
     <div id="hint"></div>
@@ -621,7 +628,7 @@ var T = {
     twoP: '2 spillere', twoPsub: 'på én telefon', howTo: 'Slik spiller du', tap: 'TRYKK!', again: 'Spill igjen', toMenu: 'Meny',
     confirmNew: 'Starte et nytt parti? Det nåværende går tapt.', no: 'Nei', yes: 'Ja', close: 'Skjønner',
     you: 'Du', cpuE: 'Datamaskin (lett)', cpuH: 'Datamaskin (vanskelig)', p1: 'Spiller 1', p2: 'Spiller 2',
-    home: 'hjemme: {n}', done: 'i hodet: {n}',
+    home: 'hjemme: {n}', done: 'i hodet: {n}', plStartA: 'START', plStartB: 'HJEM', plGoalA: 'MÅL', plGoalB: 'HODE',
     stRollYou: '<b>Din tur</b> – rist telefonen eller trykk «Kast».', stRollYouNoShake: '<b>Din tur</b> – trykk «Kast».',
     stRollP: '<b>Tur: {name}</b> – kast pinnene.', stCpu: '<b>{name}</b> tenker …',
     stMove: 'Du kastet <b>{n}</b> – trykk på en løve eller dra den langs skjellene.', stNoMove: 'Kastet <b>{n}</b> – ingen mulige trekk.',
@@ -662,7 +669,7 @@ var T = {
     twoP: '2 graczy', twoPsub: 'na jednym telefonie', howTo: 'Jak grać', tap: 'STUK!', again: 'Zagraj ponownie', toMenu: 'Menu',
     confirmNew: 'Zacząć nową partię? Obecna zostanie utracona.', no: 'Nie', yes: 'Tak', close: 'Rozumiem',
     you: 'Ty', cpuE: 'Komputer (łatwy)', cpuH: 'Komputer (trudny)', p1: 'Gracz 1', p2: 'Gracz 2',
-    home: 'dom: {n}', done: 'głowa: {n}',
+    home: 'dom: {n}', done: 'głowa: {n}', plStartA: 'START', plStartB: 'DOM', plGoalA: 'CEL', plGoalB: 'GŁOWA',
     stRollYou: '<b>Twoja tura</b> — potrząśnij telefonem lub naciśnij „Rzuć”.', stRollYouNoShake: '<b>Twoja tura</b> — naciśnij „Rzuć”.',
     stRollP: '<b>Tura: {name}</b> — rzuć patyczkami.', stCpu: '<b>{name}</b> myśli…',
     stMove: 'Wyrzucono <b>{n}</b> — stuknij lwa albo przeciągnij go palcem po łuskach.', stNoMove: 'Wyrzucono <b>{n}</b> — brak możliwego ruchu.',
@@ -703,7 +710,7 @@ var T = {
     twoP: '2 players', twoPsub: 'on one phone', howTo: 'How to play', tap: 'TAP!', again: 'Play again', toMenu: 'Menu',
     confirmNew: 'Start a new match? The current one will be lost.', no: 'No', yes: 'Yes', close: 'Got it',
     you: 'You', cpuE: 'Computer (easy)', cpuH: 'Computer (hard)', p1: 'Player 1', p2: 'Player 2',
-    home: 'home: {n}', done: 'head: {n}',
+    home: 'home: {n}', done: 'head: {n}', plStartA: 'START', plStartB: 'HOME', plGoalA: 'GOAL', plGoalB: 'HEAD',
     stRollYou: '<b>Your turn</b> — shake your phone or press “Throw”.', stRollYouNoShake: '<b>Your turn</b> — press “Throw”.',
     stRollP: '<b>Turn: {name}</b> — throw the sticks.', stCpu: '<b>{name}</b> is thinking…',
     stMove: 'You threw <b>{n}</b> — tap a lion or drag it along the scales.', stNoMove: 'Threw <b>{n}</b> — no legal move.',
@@ -817,7 +824,7 @@ function computeGeo(size) {
   function rAt(th) { return rIn + (rOut - rIn) * th / th1; }
   var M = 1400, pts = [], len = [0], j;
   for (j = 0; j <= M; j++) { var th = th1 - th1 * j / M, r = rAt(th); pts.push({ th: th, r: r }); if (j) { var a = pts[j - 1]; len.push(len[j - 1] + Math.hypot(r * Math.cos(th) - a.r * Math.cos(a.th), r * Math.sin(th) - a.r * Math.sin(a.th))); } }
-  var total = len[M], N = MC.N, segL = total / N, tailLen = segL * 1.3;
+  var total = len[M], N = MC.N, segL = total / N, tailLen = segL * 1.9, wMax = pitch * 0.97;
   function atLen(L) {
     if (L <= 0) { var t2 = th1 + (-L) / rOut; return { th: t2, r: rAt(t2) }; }
     if (L >= total) L = total;
@@ -826,7 +833,14 @@ function computeGeo(size) {
   }
   function P(L) { var a = atLen(L); return { x: c + a.r * Math.cos(a.th + rot), y: c + a.r * Math.sin(a.th + rot) }; }
   function frame(L) { var a = P(L - 0.7), b = P(L + 0.7), tx = b.x - a.x, ty = b.y - a.y, d = Math.hypot(tx, ty) || 1; tx /= d; ty /= d; var q = P(L); return { x: q.x, y: q.y, tx: tx, ty: ty, nx: -ty, ny: tx }; }
-  function W(L) { return L >= 0 ? w : w * Math.pow(Math.max(0, 1 + L / tailLen), 0.7); }
+  // ONE tapering cobra body: thin at the outer start, thickening toward the head; the tail before square 1 narrows to a point
+  function W(L) { var W0 = wMax * 0.68; if (L < 0) return W0 * Math.pow(Math.max(0, 1 + L / tailLen), 0.85); return wMax * (0.68 + 0.32 * Math.pow(Math.min(1, L / total), 0.9)); }
+  function scale(a0, a1, K) { // one body scale: free edge rounded toward the tail, front edge tucked under the next scale
+    var poly = [], q, L, f, hw, u, pr; K = K || 12;
+    for (q = 0; q <= K; q++) { u = q / K; L = a0 + (a1 - a0) * u; f = frame(L); pr = u < 0.42 ? Math.pow(Math.sin(u / 0.42 * Math.PI / 2), 0.55) : 1; hw = W(L) * 0.43 * Math.max(0.04, pr); poly.push({ x: f.x + f.nx * hw, y: f.y + f.ny * hw }); }
+    for (q = K; q >= 0; q--) { u = q / K; L = a0 + (a1 - a0) * u; f = frame(L); pr = u < 0.42 ? Math.pow(Math.sin(u / 0.42 * Math.PI / 2), 0.55) : 1; hw = W(L) * 0.43 * Math.max(0.04, pr); poly.push({ x: f.x - f.nx * hw, y: f.y - f.ny * hw }); }
+    return poly;
+  }
   function strip(a0, a1, k, K) { // curved band polygon between lengths a0..a1, width k*W
     var poly = [], q, f, hw; K = K || 10;
     for (q = 0; q <= K; q++) { var L = a0 + (a1 - a0) * q / K; f = frame(L); hw = W(L) * k / 2; poly.push({ x: f.x + f.nx * hw, y: f.y + f.ny * hw }); }
@@ -836,16 +850,17 @@ function computeGeo(size) {
   g.segs = [null];
   for (var i = 1; i <= N; i++) {
     var L0 = (i - 1) * segL, L1 = i * segL, fm = frame((i - 0.5) * segL);
-    g.segs.push({ x: fm.x, y: fm.y, ang: Math.atan2(fm.ty, fm.tx), nx: fm.nx, ny: fm.ny, L0: L0, L1: L1, poly: strip(L0 + segL * 0.07, L1 - segL * 0.07, 0.8, 8), inner: strip(L0 + segL * 0.14, L1 - segL * 0.14, 0.62, 8) });
+    g.segs.push({ x: fm.x, y: fm.y, ang: Math.atan2(fm.ty, fm.tx), nx: fm.nx, ny: fm.ny, L0: L0, L1: L1, wl: W((i - 0.5) * segL) }); var sgN = g.segs[i]; sgN.poly = strip(L0 + segL * 0.03, L1 - segL * 0.03, 0.93, 8); sgN.inner = strip(L0 + segL * 0.13, L1 - segL * 0.13, 0.66, 8);
   }
   g.samples = []; for (var L = -tailLen; L <= total + 0.01; L += 2.5) { var f2 = frame(L); f2.w = W(L); f2.L = L; g.samples.push(f2); }
-  g.frame = frame; g.W = W; g.strip = strip; g.total = total; g.tailLen = tailLen;
+  g.frame = frame; g.W = W; g.strip = strip; g.wMax = wMax; g.total = total; g.tailLen = tailLen;
   g.entry = P(-tailLen * 0.45);
   g.w = w; g.segL = segL; g.rIn = rIn; g.rOut = rOut; g.headR = rIn - w * 0.5 - 2;
   g.tokR = Math.min(w * 0.42, segL * 0.42);
   var nc = neckCurve(g); g.head = { x: nc.E.x, y: nc.E.y, ang: nc.ang, len: nc.Lh, eyeX: nc.eyeX, eyeY: nc.eyeY };
   return g;
 }
+function circPoly(x, y, r, n) { var o = []; for (var k = 0; k < n; k++) { var a = k / n * Math.PI * 2; o.push({ x: x + Math.cos(a) * r, y: y + Math.sin(a) * r }); } return o; }
 function polyPath(poly, path) { var p = path || new Path2D(); p.moveTo(poly[0].x, poly[0].y); for (var i = 1; i < poly.length; i++) p.lineTo(poly[i].x, poly[i].y); p.closePath(); return p; }
 function bodyPath(g, k) {
   var s = g.samples, p = new Path2D(), i;
@@ -957,7 +972,9 @@ function spriteCanvas(px) { var c = document.createElement('canvas'); c.width = 
 function buildSprites() {
   var R = G.tokR * 1.25 * DPR;
   SPR.R = R / DPR;
-  [0, 1].forEach(function (p) { var c = spriteCanvas(R * 2 + 4), x = c.getContext('2d'); x.translate(c.width / 2, c.height / 2); paintLion(x, R, p); SPR['lion' + p] = c; });
+  [0, 1].forEach(function (p) { var c = spriteCanvas(R * 2.24 + 4), x = c.getContext('2d'); x.translate(c.width / 2, c.height / 2);
+    x.beginPath(); x.arc(0, 0, R * 1.06, 0, 7); x.fillStyle = 'rgba(6,3,0,.82)'; x.fill(); // dark halo so a lion pops on any tile colour
+    paintLion(x, R, p); x.beginPath(); x.arc(0, 0, R * 1.0, 0, 7); x.strokeStyle = p ? 'rgba(200,250,255,.85)' : 'rgba(255,246,210,.9)'; x.lineWidth = Math.max(1, R * 0.045); x.stroke(); SPR['lion' + p] = c; });
   var gc = spriteCanvas(R * 4), gx = gc.getContext('2d'), gr = gx.createRadialGradient(gc.width / 2, gc.width / 2, R * 0.7, gc.width / 2, gc.width / 2, R * 2);
   gr.addColorStop(0, 'rgba(255,240,190,.95)'); gr.addColorStop(0.35, 'rgba(255,214,120,.45)'); gr.addColorStop(1, 'rgba(255,200,90,0)'); gx.fillStyle = gr; gx.fillRect(0, 0, gc.width, gc.width); SPR.glow = gc;
   var sc = spriteCanvas(R * 2.4), sx = sc.getContext('2d'), sg = sx.createRadialGradient(sc.width / 2, sc.width / 2, 0, sc.width / 2, sc.width / 2, sc.width / 2);
@@ -973,31 +990,43 @@ function drawToken(x, y, r, p, opts) {
   var z = opts.z || 0, k = r / SPR.R;
   if (opts.glow) { var a = 0.45 + 0.4 * Math.sin(performance.now() / 170); cx.globalAlpha = a; var gs = SPR.R * 4 * k; cx.drawImage(SPR.glow, x - gs / 2, y - gs / 2, gs, gs); cx.globalAlpha = 1; }
   var ss = SPR.R * 2.4 * k * (1 - Math.min(0.4, z / (r * 3))); cx.globalAlpha = 0.85 - Math.min(0.5, z / (r * 2)); cx.drawImage(SPR.shadow, x - ss / 2, y - ss / 2 + r * 0.28, ss, ss * 0.8); cx.globalAlpha = 1;
-  var s = (SPR.R * 2 + 4 / DPR) * k; cx.drawImage(SPR['lion' + p], x - s / 2, y - z - s / 2, s, s);
+  var s = (SPR.R * 2.24 + 4 / DPR) * k; cx.drawImage(SPR['lion' + p], x - s / 2, y - z - s / 2, s, s);
 }
 
 /* ======================= ART: board layers ======================= */
 var bgCv = $('bgL'), ringCv = $('ringL'), boardCv = $('bodyL'), BODY = null;
-var KIND_STYLE = {
-  plain: { f: ['#3d2c12', '#22170a', '#120b04'], rim: 'rgba(222,178,84,.75)', glow: null },
-  plain2: { f: ['#33250f', '#1d1408', '#0f0903'], rim: 'rgba(222,178,84,.6)', glow: null },
-  safe: { f: ['#1f6a4a', '#0f3324', '#06170f'], rim: '#6ff7b5', glow: '#3ff0a0', ic: '#a8ffd6' },
-  eye: { f: ['#2a52c0', '#122a6e', '#060f30'], rim: '#ffe39a', glow: '#ffd36a', ic: '#ffe7a6' },
-  sting: { f: ['#8e2232', '#4a0d18', '#1c040a'], rim: '#ff7088', glow: '#ff4d6a', ic: '#ffb3c0' }
+var KIND_STYLE = { // tile palette: senet-style ebony/bronze plain tiles, saturated faience specials, all with gold inlay borders
+  plain: { f: ['#6e5026', '#3c2a11', '#1a1006'], rim: '#e2b458', glow: null },
+  plain2: { f: ['#5a4020', '#30210d', '#140c04'], rim: '#e2b458', glow: null },
+  safe: { f: ['#5ff0d0', '#16a68a', '#07463a'], rim: '#ffe9a8', glow: '#3ff0c0', ic: '#fff6d8', icD: '#03241b' },
+  eye: { f: ['#5ff0d0', '#16a68a', '#07463a'], rim: '#ffe39a', glow: '#3ff0c0', ic: '#ffe7a6', icD: '#03241b' },
+  sting: { f: ['#f0604a', '#a82418', '#3c0806'], rim: '#ffd0a0', glow: '#ff5a48', ic: '#fff0dc', icD: '#2a0402' }
 };
 function seeded(seed) { var s = seed; return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
-function paintBackground(c, g) {
-  var S = g.size, C = g.c, rnd = seeded(7);
-  var bg = c.createRadialGradient(C, C, S * 0.05, C, C, S * 0.62); bg.addColorStop(0, '#1e1405'); bg.addColorStop(0.45, '#0b0703'); bg.addColorStop(1, '#000'); c.fillStyle = bg; c.fillRect(0, 0, S, S);
-  for (var i = 0; i < 900; i++) { c.fillStyle = 'rgba(255,220,150,' + (rnd() * 0.05) + ')'; c.fillRect(rnd() * S, rnd() * S, 1, 1); }
-  // promo harmony: white-violet spiral light behind the board, deep red velvet in the corners, turquoise specks (painted once)
-  c.save(); c.globalCompositeOperation = 'lighter'; c.lineCap = 'round';
-  for (var q = 0; q < 7; q++) { var r = S * (0.2 + q * 0.05), a0 = q * 0.9; c.strokeStyle = q % 2 ? 'rgba(170,150,255,.13)' : 'rgba(225,215,255,.11)'; c.lineWidth = S * 0.004; c.shadowColor = '#b9a8ff'; c.shadowBlur = S * 0.012;
-    c.beginPath(); c.arc(C, C, r, a0, a0 + Math.PI * 1.45); c.stroke(); }
-  c.shadowBlur = 0; var vg = c.createRadialGradient(C, C, S * 0.15, C, C, S * 0.5); vg.addColorStop(0, 'rgba(120,100,220,.14)'); vg.addColorStop(0.6, 'rgba(60,40,140,.05)'); vg.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = vg; c.fillRect(0, 0, S, S);
-  for (i = 0; i < 70; i++) { c.fillStyle = 'rgba(80,240,220,' + (0.08 + rnd() * 0.18) + ')'; var ra = rnd() * 7, rr = S * (0.3 + rnd() * 0.22); c.fillRect(C + Math.cos(ra) * rr, C + Math.sin(ra) * rr, 1.4, 1.4); }
-  c.restore();
-  [[0, 0], [S, 0], [0, S], [S, S]].forEach(function (pt) { var dg = c.createRadialGradient(pt[0], pt[1], 0, pt[0], pt[1], S * 0.42); dg.addColorStop(0, 'rgba(110,16,24,.42)'); dg.addColorStop(0.6, 'rgba(70,8,14,.16)'); dg.addColorStop(1, 'rgba(40,0,6,0)'); c.fillStyle = dg; c.fillRect(0, 0, S, S); });
+function paintBackground(c, g) { // aged sandstone / papyrus, kept dim so the golden cobra is the hero
+  var S = g.size, C = g.c, rnd = seeded(7), i, k;
+  var bg = c.createRadialGradient(C, C, S * 0.08, C, C, S * 0.72); bg.addColorStop(0, '#7a5a30'); bg.addColorStop(0.5, '#5a3f1e'); bg.addColorStop(0.85, '#2e1f0e'); bg.addColorStop(1, '#140c05'); c.fillStyle = bg; c.fillRect(0, 0, S, S);
+  // papyrus fibres (crossed layers) and grain
+  c.lineWidth = 0.6;
+  for (i = 0; i < 260; i++) { var y = rnd() * S, x = rnd() * S, L = S * (0.05 + rnd() * 0.18); c.strokeStyle = rnd() < 0.5 ? 'rgba(255,230,170,' + (0.03 + rnd() * 0.05) + ')' : 'rgba(40,22,6,' + (0.04 + rnd() * 0.06) + ')'; c.beginPath(); if (i % 2) { c.moveTo(x, y); c.lineTo(x + L, y + (rnd() - 0.5) * 2); } else { c.moveTo(x, y); c.lineTo(x + (rnd() - 0.5) * 2, y + L); } c.stroke(); }
+  for (i = 0; i < 1400; i++) { c.fillStyle = rnd() < 0.5 ? 'rgba(255,235,190,' + rnd() * 0.06 + ')' : 'rgba(30,16,4,' + rnd() * 0.1 + ')'; c.fillRect(rnd() * S, rnd() * S, 1, 1); }
+  // cracks: dark fissure with a lit lower lip
+  for (k = 0; k < 16; k++) { var px = rnd() * S, py = rnd() * S, a = rnd() * 6.28, n = 6 + Math.floor(rnd() * 10), pts = [[px, py]];
+    for (i = 0; i < n; i++) { a += (rnd() - 0.5) * 1.1; px += Math.cos(a) * S * 0.02; py += Math.sin(a) * S * 0.02; pts.push([px, py]); }
+    [['rgba(255,225,160,.10)', 0.7], ['rgba(25,12,2,.38)', 0]].forEach(function (st) { c.strokeStyle = st[0]; c.lineWidth = 0.8; c.beginPath(); pts.forEach(function (q, j) { if (j) c.lineTo(q[0] + st[1], q[1] + st[1]); else c.moveTo(q[0] + st[1], q[1] + st[1]); }); c.stroke(); }); }
+  // carved hieroglyph columns + cartouches in the corners (engraved: dark cut, light lip), very low contrast
+  function carve(fn) { c.save(); c.translate(0.7, 0.7); fn('rgba(255,228,170,.10)'); c.restore(); fn('rgba(30,14,2,.30)'); }
+  var gsz = S * 0.016;
+  [[0.06, 0.08], [0.94, 0.08], [0.06, 0.66], [0.94, 0.66]].forEach(function (cp, ci) {
+    for (var r = 0; r < 5; r++) { var gx = cp[0] * S, gy = cp[1] * S + r * gsz * 2.9, gl = GLYPHS[(ci * 3 + r * 7) % GLYPHS.length]; carve(function (col) { drawGlyph(c, gl, gx, gy, gsz, col); }); }
+    carve(function (col) { c.strokeStyle = col; c.lineWidth = 1; var cx0 = cp[0] * S, cy0 = cp[1] * S - gsz * 1.6; c.beginPath(); c.moveTo(cx0 - gsz * 1.4, cy0); c.lineTo(cx0 + gsz * 1.4, cy0); c.stroke(); }); });
+  // winged sun disc (top-left/right corners) – faint gilded relief
+  [[0.12, 0.05], [0.88, 0.05], [0.12, 0.95], [0.88, 0.95]].forEach(function (cp, ci) { var x = cp[0] * S, y = cp[1] * S, r = S * 0.016;
+    c.save(); c.globalAlpha = 0.5; var dg = c.createRadialGradient(x - r * 0.3, y - r * 0.3, 0, x, y, r); dg.addColorStop(0, '#fff0b8'); dg.addColorStop(0.6, '#d49a36'); dg.addColorStop(1, '#6b4308'); c.fillStyle = dg; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill();
+    c.strokeStyle = '#c99032'; c.lineWidth = 1; for (var f = 0; f < 5; f++) { [-1, 1].forEach(function (d) { c.beginPath(); c.moveTo(x + d * r * 1.2, y - r * 0.2 + f * r * 0.25); c.quadraticCurveTo(x + d * r * (2.4 + f * 0.1), y - r * (0.9 - f * 0.3), x + d * r * (3.6 - f * 0.35), y - r * (0.5 - f * 0.4)); c.stroke(); }); }
+    c.strokeStyle = 'rgba(63,224,208,.55)'; [-1, 1].forEach(function (d) { c.beginPath(); c.moveTo(x + d * r * 1.2, y - r * 0.35); c.quadraticCurveTo(x + d * r * 2.4, y - r * 1.05, x + d * r * 3.6, y - r * 0.6); c.stroke(); }); c.restore(); });
+  // soft vignette so the board area recedes into the dark page
+  var vg = c.createRadialGradient(C, C, S * 0.3, C, C, S * 0.72); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(0.7, 'rgba(10,5,0,.35)'); vg.addColorStop(1, 'rgba(10,5,0,.8)'); c.fillStyle = vg; c.fillRect(0, 0, S, S);
 }
 function paintRing(c, g) {
   var S = g.size, C = g.c, ringR = S * 0.484, n = 40;
@@ -1008,54 +1037,59 @@ function paintRing(c, g) {
   for (var k = 0; k < n; k++) { var a = k / n * Math.PI * 2; c.save(); c.translate(C + ringR * Math.cos(a), C + ringR * Math.sin(a)); c.rotate(a + Math.PI / 2); drawGlyph(c, GLYPHS[(k * 7) % GLYPHS.length], 0, 0, S * 0.0088, k % 5 === 2 ? 'rgba(90,240,225,.7)' : k % 5 === 4 ? 'rgba(205,190,255,.7)' : 'rgba(242,193,78,.62)'); c.restore(); }
   c.restore();
 }
-function paintBody(c, g, opts) {
+function paintBody(c, g, opts) { // the board IS one coiled golden cobra: tapering scaly body, the 30 squares are plates engraved into it, rising into the hooded head (finish)
   opts = opts || {};
-  var w = g.w, i, k;
-  // sun disc (finish) behind head
-  var C = g.c, R = g.headR, sd = c.createRadialGradient(C, C, R * 0.1, C, C, R);
-  sd.addColorStop(0, '#5a3608'); sd.addColorStop(0.7, '#241504'); sd.addColorStop(1, '#130b02'); c.fillStyle = sd; c.beginPath(); c.arc(C, C, R, 0, 7); c.fill();
-  c.save(); c.strokeStyle = 'rgba(242,193,78,.16)'; c.lineWidth = 1; for (k = 0; k < 32; k++) { var a = k / 32 * Math.PI * 2; c.beginPath(); c.moveTo(C + Math.cos(a) * R * 0.3, C + Math.sin(a) * R * 0.3); c.lineTo(C + Math.cos(a) * R * 0.95, C + Math.sin(a) * R * 0.95); c.stroke(); } c.restore();
-  c.save(); c.strokeStyle = '#f2c14e'; c.shadowColor = '#f2c14e'; c.shadowBlur = 10; c.lineWidth = 1.6; c.beginPath(); c.arc(C, C, R, 0, 7); c.stroke(); c.restore();
-  // body shadow
-  var b1 = bodyPath(g, 1);
-  c.save(); c.shadowColor = 'rgba(0,0,0,.95)'; c.shadowBlur = w * 0.45; c.shadowOffsetY = w * 0.14; c.fillStyle = '#000'; c.fill(b1); c.restore();
-  // tube shading (bronze body, lit ridge)
-  var stops = 9;
-  for (k = 0; k < stops; k++) { var t = k / (stops - 1), wk = 1 - t * 0.9; c.fillStyle = lerpCol('#160d04', '#9a7430', Math.pow(t, 1.3)); c.fill(k ? bodyPath(g, wk) : b1); }
-  // scale texture
-  var smp = g.samples, step = Math.max(2, Math.round(w * 0.15 / 2.5)), r = w * 0.085, dark = new Path2D(), lite = new Path2D(), row = 0;
-  for (i = 0; i < smp.length; i += step, row++) {
-    var f = smp[i], ang = Math.atan2(f.ty, f.tx);
-    for (var j = -3; j <= 3; j++) {
-      var o = (j + (row % 2 ? 0.5 : 0)) * w * 0.15; if (Math.abs(o) > f.w * 0.42) continue;
-      var x = f.x + f.nx * o, y = f.y + f.ny * o;
+  var w = g.w, i, k, smp = g.samples, b1 = bodyPath(g, 1);
+  // cast shadow on the stone + dark outline: one rounded form
+  c.save(); c.shadowColor = 'rgba(20,8,0,.85)'; c.shadowBlur = w * 0.45; c.shadowOffsetY = w * 0.16; c.fillStyle = '#1a0d03'; c.fill(b1); c.restore();
+  // cylindrical shading: dark flanks to a lit dorsal ridge (warm gold)
+  var stops = 10;
+  for (k = 0; k < stops; k++) { var t = k / (stops - 1), wk = 1 - t * 0.88; c.fillStyle = lerpCol('#3a2006', '#e2ad4c', Math.pow(t, 1.1)); c.fill(k ? bodyPath(g, wk) : b1); }
+  // fine reptile scales over the whole body (overlapping arcs, staggered rows)
+  var dark = new Path2D(), lite = new Path2D(), row = 0;
+  for (i = 0; i < smp.length; i++, row++) { var f = smp[i], ang = Math.atan2(f.ty, f.tx), r = Math.max(0.9, f.w * 0.07), n = Math.max(2, Math.round(f.w * 0.42 / (r * 1.7)));
+    if (f.w < 1.5) continue;
+    for (var j = -n; j <= n; j++) { var o = (j + (row % 2 ? 0.5 : 0)) * r * 1.7; if (Math.abs(o) > f.w * 0.46) continue; var x = f.x + f.nx * o, y = f.y + f.ny * o;
       dark.moveTo(x + Math.cos(ang + Math.PI / 2) * r, y + Math.sin(ang + Math.PI / 2) * r); dark.arc(x, y, r, ang + Math.PI / 2, ang + Math.PI * 1.5);
-      lite.moveTo(x + 0.8 + Math.cos(ang + Math.PI / 2) * r, y + 0.8 + Math.sin(ang + Math.PI / 2) * r); lite.arc(x + 0.8, y + 0.8, r, ang + Math.PI / 2, ang + Math.PI * 1.5);
+      lite.moveTo(x - 0.5 + Math.cos(ang + Math.PI / 2) * r, y - 0.6 + Math.sin(ang + Math.PI / 2) * r); lite.arc(x - 0.5, y - 0.6, r, ang + Math.PI / 2, ang + Math.PI * 1.5); } }
+  c.save(); c.clip(b1); c.lineWidth = 0.6; c.strokeStyle = 'rgba(255,240,190,.32)'; c.stroke(lite); c.strokeStyle = 'rgba(50,24,0,.55)'; c.stroke(dark);
+  // flank shading again over the texture so the body stays round; lit ridge glint
+  c.strokeStyle = 'rgba(30,14,0,.5)'; c.lineWidth = w * 0.22; c.stroke(b1); c.strokeStyle = 'rgba(30,14,0,.25)'; c.lineWidth = w * 0.45; c.stroke(b1);
+  c.strokeStyle = 'rgba(255,248,215,.18)'; c.lineWidth = w * 0.12; c.stroke(bodyPath(g, 0.02));
+  c.restore();
+  c.strokeStyle = '#120802'; c.lineWidth = 1.6; c.lineJoin = 'round'; c.stroke(b1);
+  // the 30 squares: body plates separated by engraved lines; special plates carry a turquoise (or carnelian) inlay with a gold symbol
+  var LX = -0.6, LY = -0.8;
+  for (i = 1; i <= MC.N; i++) {
+    var sg = g.segs[i], kd = MC.kind(i), st = KIND_STYLE[kd], wl = sg.wl;
+    // gentle dome per plate: brighter in the middle, shaded toward both seams
+    var pl = polyPath(g.strip(sg.L0, sg.L1, 0.985, 8)), a = g.frame(sg.L0), b = g.frame(sg.L1), dg = c.createLinearGradient(a.x, a.y, b.x, b.y);
+    dg.addColorStop(0, 'rgba(40,18,0,.32)'); dg.addColorStop(0.22, 'rgba(255,240,200,0)'); dg.addColorStop(0.5, 'rgba(255,240,200,.1)'); dg.addColorStop(0.8, 'rgba(255,240,200,0)'); dg.addColorStop(1, 'rgba(40,18,0,.32)');
+    c.fillStyle = dg; c.fill(pl);
+    if (st.ic) {
+      var ip = polyPath(sg.inner), ig = c.createRadialGradient(sg.x + LX * wl * 0.1, sg.y + LY * wl * 0.1, wl * 0.02, sg.x, sg.y, wl * 0.5);
+      ig.addColorStop(0, st.f[0]); ig.addColorStop(0.6, st.f[1]); ig.addColorStop(1, st.f[2]);
+      c.save(); c.shadowColor = 'rgba(20,8,0,.85)'; c.shadowBlur = 2.5; c.shadowOffsetY = 0.9; c.fillStyle = ig; c.fill(ip); c.restore();
+      c.save(); c.clip(ip); var gl = c.createLinearGradient(sg.x + LX * wl * 0.4, sg.y + LY * wl * 0.4, sg.x, sg.y); gl.addColorStop(0, 'rgba(255,255,255,.32)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gl; c.fill(ip);
+      c.strokeStyle = 'rgba(0,30,25,.5)'; c.lineWidth = 1.6; c.stroke(ip); c.restore();
+      c.strokeStyle = '#ffe9a6'; c.lineWidth = 1.1; c.lineJoin = 'round'; c.stroke(ip); c.strokeStyle = 'rgba(60,30,0,.7)'; c.lineWidth = 0.5; c.stroke(ip);
+      var gs = Math.min(w * 0.26, wl * 0.3);
+      var drawIc = function (col, dx, dy) { if (kd === 'eye') drawEye(c, sg.x + dx, sg.y + gs * 0.05 + dy, gs * 0.95, col); if (kd === 'safe') drawAnkh(c, sg.x + dx, sg.y - gs * 0.15 + dy, gs, col); if (kd === 'sting') drawSting(c, sg.x + dx, sg.y + dy, gs * 0.95, col); };
+      c.save(); c.shadowColor = 'rgba(0,0,0,.8)'; c.shadowBlur = 1.5; c.shadowOffsetY = 0.8; drawIc(st.icD, 0.4, 0.8); c.restore();
+      var icg = c.createLinearGradient(sg.x, sg.y - gs, sg.x, sg.y + gs); icg.addColorStop(0, '#fff6cc'); icg.addColorStop(0.5, '#f2c14e'); icg.addColorStop(1, '#b07a1c');
+      drawIc(icg, 0, 0);
     }
   }
-  c.lineWidth = 0.9; c.strokeStyle = 'rgba(255,220,140,.13)'; c.stroke(lite); c.strokeStyle = 'rgba(0,0,0,.55)'; c.stroke(dark);
-  c.strokeStyle = 'rgba(226,184,88,.55)'; c.lineWidth = 1; c.stroke(b1);
-  // uraeus-style inlay bands between the plates (lapis / carnelian with gold cloisons)
-  for (i = 1; i < MC.N; i++) { var bp = polyPath(g.strip(i * g.segL - g.segL * 0.05, i * g.segL + g.segL * 0.05, 0.96, 3)); c.fillStyle = i % 2 ? '#1a3f9e' : '#8e1e16'; c.fill(bp); c.strokeStyle = 'rgba(242,193,78,.85)'; c.lineWidth = 0.8; c.stroke(bp); }
-  // dorsal plates = board segments
-  for (i = 1; i <= MC.N; i++) {
-    var sg = g.segs[i], kd = MC.kind(i), st = KIND_STYLE[kd === 'plain' ? (i % 2 ? 'plain' : 'plain2') : kd];
-    var pp = polyPath(sg.poly), gr = c.createLinearGradient(sg.x - sg.nx * w * 0.4, sg.y - sg.ny * w * 0.4, sg.x + sg.nx * w * 0.4, sg.y + sg.ny * w * 0.4);
-    gr.addColorStop(0, st.f[2]); gr.addColorStop(0.45, st.f[0]); gr.addColorStop(1, st.f[2]);
-    c.save(); c.shadowColor = 'rgba(0,0,0,.8)'; c.shadowBlur = 4; c.shadowOffsetY = 1.5; c.fillStyle = gr; c.fill(pp); c.restore();
-    c.save(); if (st.glow) { c.shadowColor = st.glow; c.shadowBlur = 10; } c.strokeStyle = st.rim; c.lineWidth = st.glow ? 1.6 : 1.1; c.lineJoin = 'round'; c.stroke(pp); c.restore();
-    c.strokeStyle = 'rgba(255,236,180,.14)'; c.lineWidth = 0.9; c.stroke(polyPath(sg.inner));
-    if (kd === 'plain') { c.save(); c.translate(sg.x, sg.y); c.rotate(sg.ang); c.strokeStyle = 'rgba(242,193,78,.32)'; c.lineWidth = 1.1; c.beginPath(); c.moveTo(-w * 0.1, -w * 0.2); c.lineTo(w * 0.06, 0); c.lineTo(-w * 0.1, w * 0.2); c.stroke(); c.restore(); }
-    var gs = w * 0.25;
-    if (st.ic) { c.save(); c.shadowColor = st.glow; c.shadowBlur = 8; if (kd === 'eye') drawEye(c, sg.x, sg.y + gs * 0.05, gs, st.ic); if (kd === 'safe') drawAnkh(c, sg.x, sg.y - gs * 0.15, gs, st.ic); if (kd === 'sting') drawSting(c, sg.x, sg.y, gs * 0.95, st.ic); c.restore(); }
-    if (opts.numbers && (i % 5 === 0 || i === 1)) { c.fillStyle = 'rgba(242,193,78,.75)'; c.font = '700 ' + Math.max(7, w * 0.16) + 'px Cinzel,Georgia,serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; var off = w * 0.29; c.fillText(String(i), sg.x + sg.nx * off, sg.y + sg.ny * off); }
-  }
-  // home gate on the tail
-  c.save(); c.strokeStyle = 'rgba(242,193,78,.7)'; c.setLineDash([2.5, 2.5]); c.lineWidth = 1.2; c.beginPath(); c.arc(g.entry.x, g.entry.y, w * 0.36, 0, 7); c.stroke(); c.restore();
-  // the track ends at the goal disc with a gold collar; the cobra emblem itself lives in its own layers (see c1c_cobra.js)
-  var ef = g.frame(g.total - 0.4), ew = g.w * 0.46; c.save(); c.translate(ef.x, ef.y); c.rotate(Math.atan2(ef.ty, ef.tx));
-  c.strokeStyle = '#f2c14e'; c.shadowColor = '#f2c14e'; c.shadowBlur = 4; c.lineWidth = 1.6; c.beginPath(); c.moveTo(0, -ew); c.lineTo(0, ew); c.stroke(); c.restore();
-  if (opts.cobra) paintCobraStatic(c, g.c, g.c - g.headR * COBRA_LIFT, g.headR * COBRA_SCALE);
+  // engraved seams between squares (dark cut + light lower lip), across the full body width
+  for (i = 0; i <= MC.N; i++) { var fL = g.frame(i * g.segL), hw = g.W(i * g.segL) * 0.47;
+    c.lineCap = 'round';
+    c.strokeStyle = 'rgba(30,12,0,.9)'; c.lineWidth = 1.5; c.beginPath(); c.moveTo(fL.x + fL.nx * hw, fL.y + fL.ny * hw); c.lineTo(fL.x - fL.nx * hw, fL.y - fL.ny * hw); c.stroke();
+    c.strokeStyle = 'rgba(255,240,190,.55)'; c.lineWidth = 0.7; c.beginPath(); c.moveTo(fL.x + fL.tx * 1.1 + fL.nx * hw * 0.95, fL.y + fL.ty * 1.1 + fL.ny * hw * 0.95); c.lineTo(fL.x + fL.tx * 1.1 - fL.nx * hw * 0.95, fL.y + fL.ty * 1.1 - fL.ny * hw * 0.95); c.stroke(); }
+  // raised gold rim along both flanks
+  c.save(); c.clip(b1); var rimG = c.createLinearGradient(0, 0, g.size, g.size); rimG.addColorStop(0, '#fff0b8'); rimG.addColorStop(0.5, '#d49a36'); rimG.addColorStop(1, '#fff0b8');
+  c.strokeStyle = rimG; c.lineWidth = w * 0.09; c.stroke(b1); c.strokeStyle = 'rgba(40,20,0,.6)'; c.lineWidth = 0.7; c.stroke(bodyPath(g, 0.91)); c.restore();
+  c.strokeStyle = '#120802'; c.lineWidth = 1.2; c.stroke(b1);
+  if (opts.cobra) { COBRA.nhw = g.W(g.total) * 0.44 / (g.headR * COBRA_SCALE); paintCobraStatic(c, g.c, g.c - g.headR * COBRA_LIFT, g.headR * COBRA_SCALE); }
 }
 function hoodShape(Lh, w) { // spread cobra hood seen from above (x along head direction)
   var p = new Path2D(), hw = w * 0.86;
@@ -1289,12 +1323,12 @@ function introWav() {
    all motion (hood breathing, sway, eye glow, tongue flick) is CSS transform/opacity on the compositor. */
 var COBRA = { O: { x: 0, y: 0.12 } };
 function cobraHoodPts(s, neck) { // outline polyline in unit coords (1 = goal radius); s scales about COBRA.O
-  var key = s + (neck ? 'n' : ''); COBRA.cache = COBRA.cache || {}; if (COBRA.cache[key]) return COBRA.cache[key];
+  var NW = COBRA.nhw || 0.13, key = s + (neck ? 'n' : '') + NW; COBRA.cache = COBRA.cache || {}; if (COBRA.cache[key]) return COBRA.cache[key];
   var O = COBRA.O, out = [];
   function bez(a, b, c2, d, n, skip) { for (var i = skip ? 1 : 0; i <= n; i++) { var t = i / n, m = 1 - t; out.push([m * m * m * a[0] + 3 * m * m * t * b[0] + 3 * m * t * t * c2[0] + t * t * t * d[0], m * m * m * a[1] + 3 * m * m * t * b[1] + 3 * m * t * t * c2[1] + t * t * t * d[1]]); } }
-  var R = [[0, -0.70], [0.27, -0.86], [0.62, -0.66], [0.69, -0.30], [0.75, 0.04], [0.40, 0.52], [0.13, 0.79]];
+  var R = [[0, -0.70], [0.27, -0.86], [0.62, -0.66], [0.69, -0.30], [0.75, 0.04], [Math.max(0.4, NW + 0.2), 0.52], [NW, 0.79]];
   bez(R[0], R[1], R[2], R[3], 40); bez(R[3], R[4], R[5], R[6], 40, true);
-  if (neck) { bez([0.13, 0.79], [0.115, 0.85], [0.1, 0.9], [0.095, 0.98], 8, true); bez([-0.095, 0.98], [-0.1, 0.9], [-0.115, 0.85], [-0.13, 0.79], 8); }
+  if (neck) { bez([NW, 0.79], [NW, 0.85], [NW, 0.9], [NW, 0.98], 8, true); bez([-NW, 0.98], [-NW, 0.9], [-NW, 0.85], [-NW, 0.79], 8); }
   var L = R.map(function (q) { return [-q[0], q[1]]; }).reverse();
   bez(L[0], L[1], L[2], L[3], 40, !neck ? false : true); bez(L[3], L[4], L[5], L[6], 40, true);
   out = out.map(function (q) { return [O.x + (q[0] - O.x) * s, O.y + (q[1] - O.y) * s]; });
@@ -1343,25 +1377,25 @@ function cobraRing(c, s0, s1, kind, cells, rot) { // a cloisonné band between t
 function paintCobraHood(c) {
   var full = cobraHoodPath(1, true), hood = cobraHoodPath(1), k;
   // outer aura (violet / turquoise like the promo spiral light) + drop shadow
-  c.save(); c.shadowColor = 'rgba(170,140,255,.75)'; c.shadowBlur = 0.16 * COBRA.px; c.fillStyle = '#1a1206'; c.fill(full); c.restore();
+  c.save(); c.shadowColor = 'rgba(255,200,110,.45)'; c.shadowBlur = 0.12 * COBRA.px; c.fillStyle = '#1a1206'; c.fill(full); c.restore();
   c.save(); c.shadowColor = 'rgba(0,0,0,.9)'; c.shadowBlur = 0.08 * COBRA.px; c.shadowOffsetY = 0.04 * COBRA.px; c.fillStyle = '#120b03'; c.fill(full); c.restore();
   // metal base: warm gold, brighter on the upper left (candle light), deep at the edges
   var mg = c.createLinearGradient(-0.7, -0.6, 0.7, 0.8); mg.addColorStop(0, '#fff1bf'); mg.addColorStop(0.25, '#f2c14e'); mg.addColorStop(0.6, '#b07a1c'); mg.addColorStop(1, '#5a3608');
   c.fillStyle = mg; c.fill(full);
-  // neck: ventral scale rings
-  // cloisonné bands
-  cobraRing(c, 0.905, 0.745, 'lapis', 26, -Math.PI / 2 + 0.06);
-  cobraRing(c, 0.71, 0.555, 'turq', 22, -Math.PI / 2);
-  cobraRing(c, 0.52, 0.385, 'carn', 16, -Math.PI / 2 + 0.1);
-  // gold bead row between lapis and turquoise
-  c.save(); c.clip(hood);
-  var bead = cobraHoodPts(0.728), step = 4;
+  // fine reptile scales over the hood and neck (same skin as the body)
+  c.save(); c.clip(full); var sk = new Path2D(), sl = new Path2D(), rS = 0.034, row = 0;
+  for (var yy0 = -0.9; yy0 < 1.0; yy0 += rS * 0.95, row++) for (var xx0 = -0.8; xx0 < 0.8; xx0 += rS * 1.7) { var xs = xx0 + (row % 2 ? rS * 0.85 : 0);
+    sk.moveTo(xs + rS, yy0); sk.arc(xs, yy0, rS, 0, Math.PI); sl.moveTo(xs + rS - 0.006, yy0 - 0.008); sl.arc(xs - 0.006, yy0 - 0.008, rS, 0, Math.PI); }
+  c.lineWidth = 0.006; c.strokeStyle = 'rgba(255,240,190,.3)'; c.stroke(sl); c.strokeStyle = 'rgba(60,30,0,.5)'; c.stroke(sk); c.restore();
+  // turquoise cloisonné border band inside the gold rim (promo palette accent, like the reference hood inlay)
+  cobraRing(c, 0.9, 0.8, 'turq', 30, -Math.PI / 2 + 0.05);
+  c.save(); c.clip(hood); var bead = cobraHoodPts(0.78), step = 4;
   for (k = 0; k < bead.length; k += step) { var bx = bead[k][0], by = bead[k][1]; if (by > 0.70) continue;
-    var bg = c.createRadialGradient(bx - 0.006, by - 0.008, 0.001, bx, by, 0.016); bg.addColorStop(0, '#fffbe0'); bg.addColorStop(0.5, '#f2c14e'); bg.addColorStop(1, '#6b4308'); c.fillStyle = bg; c.beginPath(); c.arc(bx, by, 0.0125, 0, 7); c.fill(); }
+    var bg = c.createRadialGradient(bx - 0.006, by - 0.008, 0.001, bx, by, 0.016); bg.addColorStop(0, '#fffbe0'); bg.addColorStop(0.5, '#f2c14e'); bg.addColorStop(1, '#6b4308'); c.fillStyle = bg; c.beginPath(); c.arc(bx, by, 0.011, 0, 7); c.fill(); }
   c.restore();
-  // engraved feather chevrons in the gold core
-  c.save(); c.clip(cobraHoodPath(0.37)); c.strokeStyle = 'rgba(90,50,0,.35)'; c.lineWidth = 0.006;
-  for (k = 0; k < 12; k++) { var cy = -0.2 + k * 0.07; c.beginPath(); c.moveTo(-0.4, cy - 0.1); c.lineTo(0, cy + 0.05); c.lineTo(0.4, cy - 0.1); c.stroke(); } c.restore();
+  // turquoise stripe down the hood centre (behind the throat plates)
+  var ts = new Path2D(); ts.moveTo(-0.15, -0.5); ts.lineTo(0.15, -0.5); ts.lineTo(0.1, 0.78); ts.lineTo(-0.1, 0.78); ts.closePath();
+  c.save(); c.clip(hood); c.fillStyle = cobraGem(c, -0.03, 0, 0.5, 'turq'); c.fill(ts); c.strokeStyle = '#ffe29a'; c.lineWidth = 0.01; c.stroke(ts); c.restore();
   // ventral (throat) scales down the hood centre into the neck; drawn bottom-up so each scale overlaps the one below
   var plates = [], yy = -0.43, n = 19;
   for (k = 0; k < n; k++) { var t = k / (n - 1), hh = 0.098 - t * 0.03; plates.push({ y: yy, hh: hh, hw: 0.104 - t * 0.026 }); yy += hh * 0.92; }
@@ -1372,23 +1406,22 @@ function paintCobraHood(c) {
     c.fillStyle = sg; c.fill(sp); c.restore();
     c.save(); c.clip(sp); var vg = c.createLinearGradient(0, y0, 0, yb); vg.addColorStop(0, 'rgba(40,18,0,.45)'); vg.addColorStop(0.35, 'rgba(40,18,0,0)'); vg.addColorStop(0.85, 'rgba(255,250,225,.18)'); vg.addColorStop(1, 'rgba(40,18,0,.2)'); c.fillStyle = vg; c.fillRect(-0.3, y0 - 0.05, 0.6, P.hh + 0.1); c.restore();
     c.strokeStyle = 'rgba(70,36,0,.8)'; c.lineWidth = 0.006; c.stroke(sp);
-    if (k % 3 === 1 && k < n - 2) { c.fillStyle = cobraGem(c, 0, y0 + P.hh * 0.5, hw * 0.4, 'lapis'); c.beginPath(); c.moveTo(-hw * 0.32, y0 + P.hh * 0.5); c.lineTo(0, y0 + P.hh * 0.3); c.lineTo(hw * 0.32, y0 + P.hh * 0.5); c.lineTo(0, y0 + P.hh * 0.72); c.closePath(); c.fill(); c.strokeStyle = '#ffe29a'; c.lineWidth = 0.005; c.stroke(); }
+    if (k % 2 === 1 && k < n - 2) { c.fillStyle = cobraGem(c, 0, y0 + P.hh * 0.5, hw * 0.4, 'turq'); c.beginPath(); c.moveTo(-hw * 0.32, y0 + P.hh * 0.5); c.lineTo(0, y0 + P.hh * 0.3); c.lineTo(hw * 0.32, y0 + P.hh * 0.5); c.lineTo(0, y0 + P.hh * 0.72); c.closePath(); c.fill(); c.strokeStyle = '#ffe29a'; c.lineWidth = 0.005; c.stroke(); }
   }
   // inner shading along the rim (depth) + glossy candle highlight
   c.save(); c.clip(full);
   c.strokeStyle = 'rgba(20,8,0,.55)'; c.lineWidth = 0.09; c.stroke(full);
   var hl = c.createRadialGradient(-0.28, -0.36, 0.02, -0.28, -0.36, 0.62); hl.addColorStop(0, 'rgba(255,250,225,.42)'); hl.addColorStop(0.45, 'rgba(255,240,200,.10)'); hl.addColorStop(1, 'rgba(255,240,200,0)');
   c.fillStyle = hl; c.fillRect(-1, -1, 2, 2);
-  var lo = c.createLinearGradient(0, 0.1, 0, 1); lo.addColorStop(0, 'rgba(60,10,40,0)'); lo.addColorStop(1, 'rgba(60,10,40,.35)'); c.fillStyle = lo; c.fillRect(-1, 0, 2, 1); // violet-red bounce light from below
+  var lo = c.createLinearGradient(0, 0.1, 0, 1); lo.addColorStop(0, 'rgba(40,16,0,0)'); lo.addColorStop(1, 'rgba(40,16,0,.3)'); c.fillStyle = lo; c.fillRect(-1, 0, 2, 1); // violet-red bounce light from below
   c.restore();
   // rim: bright gold wire with a turquoise inner hairline
   c.save(); c.shadowColor = 'rgba(255,214,120,.9)'; c.shadowBlur = 0.04 * COBRA.px; c.strokeStyle = '#ffe39a'; c.lineWidth = 0.022; c.stroke(full); c.restore();
   c.strokeStyle = 'rgba(63,224,208,.55)'; c.lineWidth = 0.007; c.stroke(cobraHoodPath(0.955));
   c.strokeStyle = '#3a2206'; c.lineWidth = 0.006; c.stroke(full);
-  c.save(); c.globalCompositeOperation = 'destination-out'; var fd = c.createLinearGradient(0, 0.7, 0, 0.9); fd.addColorStop(0, 'rgba(0,0,0,0)'); fd.addColorStop(1, 'rgba(0,0,0,1)'); c.fillStyle = fd; c.fillRect(-0.5, 0.7, 1, 0.5); c.restore();
 }
 var CB_EYE = { x: 0.142, y: -0.655 };
-function paintCobraHead(c) {
+function _paintCobraHead(c) {
   var hp = cobraHeadPath();
   c.save(); c.shadowColor = 'rgba(0,0,0,.85)'; c.shadowBlur = 0.08 * COBRA.px; c.shadowOffsetY = 0.035 * COBRA.px; c.fillStyle = '#1a0f02'; c.fill(hp); c.restore();
   var g = c.createLinearGradient(-0.25, 0, 0.25, 0); g.addColorStop(0, '#4a2c06'); g.addColorStop(0.2, '#c99032'); g.addColorStop(0.42, '#fff2c4'); g.addColorStop(0.58, '#f2c14e'); g.addColorStop(0.82, '#a36c16'); g.addColorStop(1, '#4a2c06');
@@ -1415,7 +1448,7 @@ function paintCobraHead(c) {
     c.save(); c.translate(d * CB_EYE.x, CB_EYE.y); c.scale(d * 1.15, 1.15); c.rotate(0.42);
     var al = new Path2D(); al.moveTo(-0.05, 0.004); al.quadraticCurveTo(0.005, -0.046, 0.058, 0); al.quadraticCurveTo(0.005, 0.036, -0.05, 0.004); al.closePath();
     c.fillStyle = '#0b0602'; c.save(); c.scale(1.3, 1.45); c.fill(al); c.restore();
-    var ig = c.createRadialGradient(-0.008, -0.012, 0.002, 0, 0, 0.052); ig.addColorStop(0, '#fffbe0'); ig.addColorStop(0.3, '#ffd257'); ig.addColorStop(0.72, '#e08a12'); ig.addColorStop(1, '#5a2a00');
+    var ig = c.createRadialGradient(-0.008, -0.012, 0.002, 0, 0, 0.052); ig.addColorStop(0, '#f0fffb'); ig.addColorStop(0.3, '#7ff7e2'); ig.addColorStop(0.72, '#16b49a'); ig.addColorStop(1, '#03453a');
     c.fillStyle = ig; c.fill(al);
     c.fillStyle = '#050200'; c.beginPath(); c.ellipse(0.004, 0.0, 0.008, 0.029, 0, 0, 7); c.fill();
     c.fillStyle = 'rgba(255,255,255,.92)'; c.beginPath(); c.arc(-0.014, -0.013, 0.007, 0, 7); c.fill();
@@ -1423,13 +1456,20 @@ function paintCobraHead(c) {
     c.restore();
   });
   // nostrils at the snout tip
-  c.fillStyle = '#2a1604'; [-1, 1].forEach(function (d) { c.beginPath(); c.ellipse(d * 0.022, -0.36, 0.0085, 0.0055, d * 0.6, 0, 7); c.fill(); });
+  c.fillStyle = '#2a1604'; [-1, 1].forEach(function (d) { c.beginPath(); c.ellipse(d * 0.03, -0.445, 0.009, 0.006, d * 0.6, 0, 7); c.fill(); });
+  // open mouth: dark throat under the upper jaw, two fangs, lower jaw lip
+  var mo = new Path2D(); mo.moveTo(-0.082, -0.415); mo.quadraticCurveTo(0, -0.43, 0.082, -0.415); mo.quadraticCurveTo(0.06, -0.345, 0, -0.338); mo.quadraticCurveTo(-0.06, -0.345, -0.082, -0.415); mo.closePath();
+  var mg2 = c.createRadialGradient(0, -0.39, 0.005, 0, -0.38, 0.08); mg2.addColorStop(0, '#2a0306'); mg2.addColorStop(0.7, '#7a1420'); mg2.addColorStop(1, '#c0405a'); c.fillStyle = mg2; c.fill(mo);
+  c.strokeStyle = 'rgba(40,10,0,.9)'; c.lineWidth = 0.006; c.stroke(mo);
+  [-1, 1].forEach(function (d) { var fg = new Path2D(); fg.moveTo(d * 0.06, -0.418); fg.quadraticCurveTo(d * 0.058, -0.385, d * 0.045, -0.362); fg.quadraticCurveTo(d * 0.046, -0.392, d * 0.04, -0.42); fg.closePath();
+    var ff = c.createLinearGradient(0, -0.42, 0, -0.36); ff.addColorStop(0, '#fffdf2'); ff.addColorStop(1, '#d8d0b8'); c.fillStyle = ff; c.fill(fg); c.strokeStyle = 'rgba(60,40,20,.6)'; c.lineWidth = 0.003; c.stroke(fg); });
+  c.strokeStyle = 'rgba(255,240,200,.55)'; c.lineWidth = 0.005; c.beginPath(); c.moveTo(-0.06, -0.336); c.quadraticCurveTo(0, -0.322, 0.06, -0.336); c.stroke();
 }
-function paintCobraEyeGlow(c) {
+function _paintCobraEyeGlow(c) {
   [-1, 1].forEach(function (d) { var x = d * CB_EYE.x, y = CB_EYE.y, g = c.createRadialGradient(x, y, 0.004, x, y, 0.095);
-    g.addColorStop(0, 'rgba(255,240,170,.9)'); g.addColorStop(0.3, 'rgba(255,190,60,.45)'); g.addColorStop(1, 'rgba(255,150,30,0)'); c.fillStyle = g; c.beginPath(); c.arc(x, y, 0.095, 0, 7); c.fill(); });
+    g.addColorStop(0, 'rgba(200,255,245,.95)'); g.addColorStop(0.3, 'rgba(60,235,210,.5)'); g.addColorStop(1, 'rgba(30,200,190,0)'); c.fillStyle = g; c.beginPath(); c.arc(x, y, 0.095, 0, 7); c.fill(); });
 }
-function paintCobraTongue(c) {
+function _paintCobraTongue(c) {
   var t = new Path2D(); t.moveTo(-0.008, -0.39); t.lineTo(0.008, -0.39); t.lineTo(0.006, -0.25); t.quadraticCurveTo(0.03, -0.21, 0.05, -0.175); t.lineTo(0.044, -0.17); t.quadraticCurveTo(0.022, -0.2, 0, -0.23);
   t.quadraticCurveTo(-0.022, -0.2, -0.044, -0.17); t.lineTo(-0.05, -0.175); t.quadraticCurveTo(-0.03, -0.21, -0.006, -0.25); t.closePath();
   c.save(); c.shadowColor = 'rgba(255,60,90,.7)'; c.shadowBlur = 0.02 * COBRA.px; var g = c.createLinearGradient(0, -0.39, 0, -0.17); g.addColorStop(0, '#7a0c1c'); g.addColorStop(1, '#ff3b5c'); c.fillStyle = g; c.fill(t); c.restore();
@@ -1442,7 +1482,8 @@ function paintCobraStatic(c, cx0, cy0, R) { // single static render (menu art)
   var S = R * COBRA_BOX; c.drawImage(L, cx0 - S / 2, cy0 - S / 2, S, S);
 }
 function buildCobra() { // DOM layers on the game board
-  var box = $('cobra'); if (!box) return; var R = G.headR * COBRA_SCALE, px = R * DPR; COBRA.px = px;
+  var box = $('cobra'); if (!box) return; var R = G.headR * COBRA_SCALE, px = R * DPR; COBRA.px = px; COBRA.nhw = Math.min(0.2, G.W(G.total) * 0.44 / R); // neck = body width: the coil flows into the raised head
+  placePlaques(R);
   var S = R * COBRA_BOX; box.style.width = box.style.height = S + 'px'; box.style.left = (G.c - S / 2) + 'px'; box.style.top = (G.c - G.headR * COBRA_LIFT - S / 2) + 'px';
   var map = { cbHood: paintCobraHood, cbTongue: paintCobraTongue, cbHead: paintCobraHead, cbEyes: paintCobraEyeGlow };
   // gold glint that sweeps across the hood now and then: a CSS gradient masked by the hood silhouette
@@ -1453,16 +1494,30 @@ function buildCobra() { // DOM layers on the game board
 function cobraClearance() { // min distance (px) between the cobra silhouette (hood at full spread, head, neck) and any track square; <0 = overlap
   var R = G.headR * COBRA_SCALE, cx0 = G.c, cy0 = G.c - G.headR * COBRA_LIFT, pts = [];
   cobraHoodPts(1, true).forEach(function (q) { if (q[1] < 0.8) pts.push([q[0] * 1.08, q[1] * 1.02 + (q[1] - 0.84) * 0]); });
-  var hp = [[0, -0.95], [0.192, -0.82], [0.2, -0.7], [-0.192, -0.82], [-0.2, -0.7], [0.1, -0.94], [-0.1, -0.94]]; pts = pts.concat(hp);
+  var hp = [[0, -0.95], [0.192, -0.82], [0.2, -0.7], [-0.192, -0.82], [-0.2, -0.7], [0.1, -0.94], [-0.1, -0.94]].map(function (q) { return [q[0] * 1.2, -0.93 + (q[1] + 0.93) * 1.2]; }); pts = pts.concat(hp); // head is drawn scaled (cbHeadXf)
   var best = 1e9;
   function inPoly(x, y, poly) { var ins = false; for (var i = 0, j = poly.length - 1; i < poly.length; j = i++) { var a = poly[i], b = poly[j]; if ((a.y > y) !== (b.y > y) && x < (b.x - a.x) * (y - a.y) / (b.y - a.y) + a.x) ins = !ins; } return ins; }
   function dSeg(x, y, a, b) { var dx = b.x - a.x, dy = b.y - a.y, t = Math.max(0, Math.min(1, ((x - a.x) * dx + (y - a.y) * dy) / (dx * dx + dy * dy || 1))); return Math.hypot(x - a.x - t * dx, y - a.y - t * dy); }
   pts.forEach(function (q) { var x = cx0 + q[0] * R, y = cy0 + q[1] * R;
-    for (var k = 1; k <= MC.N; k++) { var poly = G.segs[k].poly; if (inPoly(x, y, poly)) { best = Math.min(best, -1); continue; } for (var i = 0; i < poly.length; i++) best = Math.min(best, dSeg(x, y, poly[i], poly[(i + 1) % poly.length])); } });
+    for (var k = 1; k <= MC.N; k++) { var poly = G.segs[k].poly; if (inPoly(x, y, poly)) { best = Math.min(best, -1); cobraClearance.hit = [q[0].toFixed(2), q[1].toFixed(2), k]; continue; } for (var i = 0; i < poly.length; i++) best = Math.min(best, dSeg(x, y, poly[i], poly[(i + 1) % poly.length])); } });
   return Math.round(best * 10) / 10;
 }
 if (DEBUG) window.__cobraClear = cobraClearance;
 if (DEBUG) window.__cobra = function (c, x, y, r) { paintCobraStatic(c, x, y, r); };
+
+function placePlaques(R) { // START plaque beside the tail tip (outside the coil), goal plaque on the cobra's neck — DOM text, so it follows the language switch
+  var ps = $('plStart'), pg = $('plGoal'); if (!ps || !pg) return;
+  var tip = G.frame(-G.tailLen), sz = G.size, fs = Math.max(9, Math.min(13, sz * 0.024));
+  ps.style.fontSize = pg.style.fontSize = fs + 'px';
+  var ox = tip.x - G.c, oy = tip.y - G.c, d = Math.hypot(ox, oy) || 1, push = G.wMax * 0.9;
+  var x = Math.max(fs * 2.6, Math.min(sz - fs * 2.6, tip.x + ox / d * push)), y = Math.max(fs * 1.6, Math.min(sz - fs * 1.6, tip.y + oy / d * push));
+  ps.style.left = x + 'px'; ps.style.top = y + 'px';
+  pg.style.left = G.c + 'px'; pg.style.top = (G.c - G.headR * COBRA_LIFT + R * 0.74) + 'px';
+}
+function paintCobraHead(c) { c.save(); cbHeadXf(c); _paintCobraHead(c); c.restore(); }
+function paintCobraEyeGlow(c) { c.save(); cbHeadXf(c); _paintCobraEyeGlow(c); c.restore(); }
+function paintCobraTongue(c) { c.save(); cbHeadXf(c); _paintCobraTongue(c); c.restore(); }
+function cbHeadXf(c) { c.translate(0, -0.93); c.scale(1.2, 1.2); c.translate(0, 0.93); } // larger, more commanding head (hood unchanged)
 
 var disp = null, trail = null, fxParts = [];
 function legalNow() { if (!S || S.phase !== 'move' || busy || !ctl(S.turn) || !$('mini').hidden) return []; return MC.legalMoves(S, S.turn, S.roll); }

@@ -361,6 +361,27 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
 #rulesCard ul.rsub{display:block;margin:4px 0 4px 2px;padding-left:1.1em;list-style:disc}
 #rulesCard ul.rsub li{display:list-item;background:none;border:0;box-shadow:none;padding:0;margin:0;font:inherit;font-family:var(--body,inherit);text-transform:none;letter-spacing:normal;text-align:left;color:var(--ink);-webkit-text-fill-color:currentColor;filter:none}
 
+/* share: QR always visible on the menu and win screen (as in the other Stop60 games) */
+#mShareRow{display:flex;gap:10px;align-items:stretch;margin-top:8px}
+#mShareRow .col,#winShare .col{flex:1;display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:0}
+#mShareRow .col .btn,#winShare .col .btn{margin:0;width:100%}
+.qrfig{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 6px 5px;border-radius:10px;border:0;cursor:pointer;
+  background:linear-gradient(180deg,#f6dc8e,#c99434);box-shadow:0 0 0 1.5px #3a2206,0 0 0 3px rgba(63,224,208,.55),0 3px 10px rgba(0,0,0,.6)}
+.qrfig .qrsvg{display:block;width:var(--qr,86px);aspect-ratio:1;background:#fff;border-radius:4px;padding:2px}
+.qrfig .qrsvg svg{display:block;width:100%;height:100%}
+.qrfig small{font-family:-apple-system,system-ui,sans-serif;font-weight:700;font-size:10px;line-height:1.1;letter-spacing:.06em;text-transform:uppercase;color:#2a1604;white-space:nowrap}
+.shico{width:1.05em;height:1.05em;vertical-align:-.16em;margin-right:.4em}
+#winShare{display:flex;gap:12px;align-items:center;margin:6px 0 10px;text-align:left}
+#winShare .qrfig{--qr:74px}
+#winShare small{font-size:12px;color:var(--mut);line-height:1.3}
+#qrBox{background:#fff!important}
+@media (max-height:700px){.qrfig{--qr:68px} #mShareRow .col{gap:6px}}
+#mShareRow .col .btn{font-size:15px;padding-left:10px;padding-right:16px;line-height:1.15}
+#mShare,#wShare{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:7px}
+#mShare .shico,#wShare .shico{flex:none;margin:0;width:18px;height:18px}
+.qrfig small{letter-spacing:.02em}
+@media (max-width:380px){#mShareRow .col .btn{font-size:13.5px}}
+
 </style>
 </head>
 <body>
@@ -402,7 +423,8 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
   </div>
   <div class="row"><button class="btn" id="m2p"><img class="ic2" alt="" /><span class="bt"><span data-t="twoP">2 graczy</span><small data-t="twoPsub">na jednym telefonie</small></span><img class="ic3" alt="" /></button>
   <button class="btn" id="mOnline"><span class="bt"><span data-t="online">Online</span><small data-t="onlineSub">2 telefony</small></span></button></div>
-  <div class="row"><button class="btn" id="mRules" data-t="howTo">Jak grać</button><button class="btn" id="mShare"><span data-t="share">Udostępnij grę</span></button></div>
+  <div id="mShareRow"><button type="button" class="qrfig" id="mQr"><span class="qrsvg" id="mQrSvg"></span><small data-t="qrLabel">Zeskanuj i zagraj</small></button>
+    <div class="col"><button class="btn gold" id="mShare"><svg class="shico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="share">Udostępnij grę</span></button><button class="btn" id="mRules" data-t="howTo">Jak grać</button></div></div>
   <div class="glyphs" id="menuGlyphs"></div>
 </div></div>
 
@@ -454,6 +476,7 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
   <canvas id="winCv" width="400" height="236"></canvas>
   <h2 id="winTitle"></h2>
   <p id="winTxt"></p>
+  <div id="winShare"><button type="button" class="qrfig" id="wQr"><span class="qrsvg" id="wQrSvg"></span></button><div class="col"><small data-t="qrShare">Zeskanuj i zagraj — podaj dalej</small><button class="btn" id="wShare"><svg class="shico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="share">Udostępnij grę</span></button></div></div>
   <button class="btn gold" id="wAgain" data-t="again">Zagraj ponownie</button>
   <button class="btn" id="wMenu" data-t="toMenu">Menu</button>
 </div></div>
@@ -630,7 +653,7 @@ var T = {
     online: "Online", onlineSub: "2 telefoner", onT: "Spill online", onTxt: "Spill mot en venn på hver sin telefon. Den ene oppretter et rom, den andre skanner QR-koden eller skriver inn koden.", create: "Opprett rom", orJoin: "– eller bli med i et rom –", join: "Bli med", roomTxt: "Be vennen din skanne QR-koden med kameraet, eller skrive inn koden:", waitOpp: "Venter på motstander …", connecting: "Kobler til …", oppJoined: "Motstanderen er med!", oppLost: "Motstanderen mistet forbindelsen – venter …", oppBack: "Motstanderen er tilbake", oppLeftT: "Motstanderen forlot spillet", oppLeftP: "Partiet ble avsluttet. Du kan starte et nytt fra menyen.", netLost: "Ingen forbindelse – prøver igjen …", noRoom: "Fant ikke rommet – sjekk koden og at vennen din har rommet åpent.", roomFull: "Rommet er allerede fullt.", badCode: "Koden har 5 tegn.", opp: "Motstander", yourTurn: "Din tur", oppTurn: "Motstanderens tur", stOpp: "<b>Motstanderen</b> kaster …", winOpp: "Motstanderen fikk gudens nåde. Revansj?", modeOnline: "online", netErr: "Kunne ikke koble til. Sjekk internett og prøv igjen.",
     sndLbl: 'Lyd',
     introSkip: 'Hopp over', introSound: 'Trykk for lyd',
-    share: 'Del spillet', shareTxt: 'Skann koden med kameraet på telefonen for å åpne spillet.', shareBtn: 'Del …', copy: 'Kopier lenke', copied: 'Kopiert!', close2: 'Lukk',
+    qrLabel: 'Skann og spill', qrShare: 'Skann og spill – del videre', share: 'Del spillet', shareTxt: 'Skann koden med kameraet på telefonen for å åpne spillet.', shareBtn: 'Del …', copy: 'Kopier lenke', copied: 'Kopiert!', close2: 'Lukk',
     subtitle: 'Slangespiralen', test: 'TESTVERSJON', roll: 'Kast', continue: 'Fortsett partiet', vsAI: 'Mot datamaskinen', easy: 'lett', hard: 'vanskelig',
     twoP: '2 spillere', twoPsub: 'på én telefon', howTo: 'Slik spiller du', tap: 'TRYKK!', again: 'Spill igjen', toMenu: 'Meny',
     confirmNew: 'Starte et nytt parti? Det nåværende går tapt.', no: 'Nei', yes: 'Ja', close: 'Skjønner',
@@ -670,7 +693,7 @@ var T = {
     online: "Online", onlineSub: "2 telefony", onT: "Gra online", onTxt: "Zagraj ze znajomym, każdy na swoim telefonie. Jedna osoba tworzy pokój, druga skanuje kod QR albo wpisuje kod.", create: "Utwórz pokój", orJoin: "– albo dołącz do pokoju –", join: "Dołącz", roomTxt: "Poproś znajomego o zeskanowanie kodu QR aparatem albo wpisanie kodu:", waitOpp: "Czekam na przeciwnika…", connecting: "Łączenie…", oppJoined: "Przeciwnik dołączył!", oppLost: "Przeciwnik stracił połączenie – czekam…", oppBack: "Przeciwnik wrócił", oppLeftT: "Przeciwnik opuścił grę", oppLeftP: "Partia została zakończona. Nową możesz zacząć z menu.", netLost: "Brak połączenia – ponawiam…", noRoom: "Nie znaleziono pokoju – sprawdź kod i czy znajomy ma otwarty pokój.", roomFull: "Pokój jest już pełny.", badCode: "Kod ma 5 znaków.", opp: "Przeciwnik", yourTurn: "Twój ruch", oppTurn: "Ruch przeciwnika", stOpp: "<b>Przeciwnik</b> rzuca…", winOpp: "Przeciwnik otrzymał łaskę boga. Rewanż?", modeOnline: "online", netErr: "Nie udało się połączyć. Sprawdź internet i spróbuj ponownie.",
     sndLbl: 'Dźwięk',
     introSkip: 'Pomiń', introSound: 'Dotknij, aby włączyć dźwięk',
-    share: 'Udostępnij grę', shareTxt: 'Zeskanuj kod aparatem telefonu, aby otworzyć grę.', shareBtn: 'Udostępnij…', copy: 'Kopiuj link', copied: 'Skopiowano!', close2: 'Zamknij',
+    qrLabel: 'Zeskanuj i zagraj', qrShare: 'Zeskanuj i zagraj — podaj dalej', share: 'Udostępnij grę', shareTxt: 'Zeskanuj kod aparatem telefonu, aby otworzyć grę.', shareBtn: 'Udostępnij…', copy: 'Kopiuj link', copied: 'Skopiowano!', close2: 'Zamknij',
     subtitle: 'Spirala Węża', test: 'WERSJA TESTOWA', roll: 'Rzuć', continue: 'Kontynuuj partię', vsAI: 'Z komputerem', easy: 'łatwy', hard: 'trudny',
     twoP: '2 graczy', twoPsub: 'na jednym telefonie', howTo: 'Jak grać', tap: 'STUK!', again: 'Zagraj ponownie', toMenu: 'Menu',
     confirmNew: 'Zacząć nową partię? Obecna zostanie utracona.', no: 'Nie', yes: 'Tak', close: 'Rozumiem',
@@ -710,7 +733,7 @@ var T = {
     online: "Online", onlineSub: "2 phones", onT: "Play online", onTxt: "Play a friend, each on your own phone. One of you creates a room, the other scans the QR code or enters the code.", create: "Create room", orJoin: "– or join a room –", join: "Join", roomTxt: "Ask your friend to scan the QR code with the camera, or enter the code:", waitOpp: "Waiting for opponent…", connecting: "Connecting…", oppJoined: "Opponent joined!", oppLost: "Opponent lost connection – waiting…", oppBack: "Opponent is back", oppLeftT: "Your opponent left the game", oppLeftP: "The match has ended. You can start a new one from the menu.", netLost: "No connection – retrying…", noRoom: "Room not found – check the code and that your friend still has the room open.", roomFull: "That room is already full.", badCode: "The code has 5 characters.", opp: "Opponent", yourTurn: "Your turn", oppTurn: "Opponent's turn", stOpp: "<b>Opponent</b> is throwing…", winOpp: "Your opponent won the god’s favour. Rematch?", modeOnline: "online", netErr: "Could not connect. Check your internet and try again.",
     sndLbl: 'Sound',
     introSkip: 'Skip', introSound: 'Tap for sound',
-    share: 'Share the game', shareTxt: 'Scan the code with a phone camera to open the game.', shareBtn: 'Share…', copy: 'Copy link', copied: 'Copied!', close2: 'Close',
+    qrLabel: 'Scan & play', qrShare: 'Scan & play — pass it on', share: 'Share the game', shareTxt: 'Scan the code with a phone camera to open the game.', shareBtn: 'Share…', copy: 'Copy link', copied: 'Copied!', close2: 'Close',
     subtitle: 'The Serpent Spiral', test: 'TEST VERSION', roll: 'Throw', continue: 'Continue match', vsAI: 'vs Computer', easy: 'easy', hard: 'hard',
     twoP: '2 players', twoPsub: 'on one phone', howTo: 'How to play', tap: 'TAP!', again: 'Play again', toMenu: 'Menu',
     confirmNew: 'Start a new match? The current one will be lost.', no: 'No', yes: 'Yes', close: 'Got it',
@@ -2084,7 +2107,9 @@ function qrSVG(text) { var q = qrcode(0, 'M'); q.addData(text); q.make(); var n 
 function copyText(txt) { return (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(txt) : Promise.reject()).catch(function () {
   var ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); }); }
 function openShare() { var u = gameURL(); $('qrBox').innerHTML = qrSVG(u); $('shareUrl').textContent = u; $('sNative').hidden = !navigator.share; $('sCopy').textContent = t('copy'); show('share'); }
-$('mShare').onclick = openShare;
+$('mShare').onclick = openShare; $('mQr').onclick = openShare; $('wShare').onclick = openShare; $('wQr').onclick = openShare;
+function paintShareQr() { var s = qrSVG(gameURL()); ['mQrSvg', 'wQrSvg'].forEach(function (id) { var e = $(id); if (e && !e.firstChild) e.innerHTML = s; }); ['mQr', 'wQr'].forEach(function (id) { $(id).setAttribute('aria-label', t('share') + ' – QR: ' + gameURL()); }); }
+paintShareQr(); // the game URL QR is always visible on the start and end screens (like the other Stop60 games), generated offline
 $('sClose').onclick = function () { hide('share'); };
 $('sNative').onclick = function () { if (navigator.share) navigator.share({ title: 'Hefau – ' + t('subtitle'), text: 'Hefau – ' + t('subtitle'), url: gameURL() }).catch(function () {}); };
 $('sCopy').onclick = function () { copyText(gameURL()).then(function () { $('sCopy').textContent = t('copied'); setTimeout(function () { $('sCopy').textContent = t('copy'); }, 1600); }); };

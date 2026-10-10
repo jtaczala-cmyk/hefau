@@ -1,4 +1,4 @@
-# Hefau – Slangespiralen / Spirala Węża / The Serpent Spiral — TESTVERSJON
+# Hefau – Slangespiralen · Spirala Węża · The Serpent Spiral
 
 Test build of a mobile-first browser board game by Stop60: an original digital game inspired by the
 ancient Egyptian spiral board game mehen. Not listed on the public Stop60 pages yet (noindex).

@@ -357,6 +357,9 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
 /* rules: each section is its own parchment card with a turquoise/lapis border (portrait stack) */
 #rulesCard ul{display:flex;flex-direction:column;gap:7px;padding:0}
 #rulesCard li{margin:0;background:linear-gradient(180deg,rgba(255,250,232,.55),rgba(236,216,170,.45));border:1.5px solid #1f8f86;border-radius:10px;padding:7px 9px;box-shadow:0 0 0 1px rgba(30,60,140,.35) inset,0 1px 3px rgba(60,35,0,.25)}
+#rulesCard li .rh{display:block;font-family:var(--deco);font-size:1.02em;margin-bottom:2px}
+#rulesCard ul.rsub{display:block;margin:4px 0 4px 2px;padding-left:1.1em;list-style:disc}
+#rulesCard ul.rsub li{display:list-item;background:none;border:0;box-shadow:none;padding:0;margin:0;font:inherit;font-family:var(--body,inherit);text-transform:none;letter-spacing:normal;text-align:left;color:var(--ink);-webkit-text-fill-color:currentColor;filter:none}
 
 </style>
 </head>
@@ -650,17 +653,16 @@ var T = {
     winT: 'Gudens nåde!', winYou: 'Løveflokken din nådde slangens hode og ble gjenfødt. Du vinner!', winCpu: 'Datamaskinen fikk gudens nåde. Prøv igjen!',
     winP: '{name} får gudens nåde!', stYouWin: '<b>Du vinner!</b> Gudens nåde er din.', winStats: 'Kast: {t} · Slått hjem: {c} · Reflekstreff: {m}',
     rulesHtml: '<h2>Slik spiller du</h2>'
-      + '<p>Brettet er en sammenrullet gullkobra. Hver spiller har <b>3 løver</b>. De starter på <b>startfeltet (hjem)</b> ved halen (ytterst) og løper langs 30 skjell til <b>hodet</b> i midten.</p>'
-      + '<p><b>Mål:</b> få alle 3 løvene inn i slangens hode først – da får du gudens nåde.</p>'
-      + '<ul><li><img class="ic" data-ic="sticks" alt=""><span><b>Kast:</b> rist telefonen eller trykk «Kast». 4 pinner: antall lyse sider = trekk (1–4), alle mørke = <b>5</b>.</span></li>'
-      + '<li><img class="ic" data-ic="sun" alt=""><span><b>4 eller 5</b> = ekstra kast.</span></li>'
-      + '<li><img class="ic" data-ic="lion0" alt=""><span><b>Trekk:</b> trykk på en løve, eller dra den med fingeren langs skjellene til det lysende feltet. Løver hjemme går inn ved halen. For å komme inn i hodet holder det å kaste like mye som eller mer enn det som gjenstår.</span></li>'
-      + '<li><img class="ic" data-ic="lion1" alt=""><span><b>Slå hjem:</b> lander du på motstanderens løve, går den tilbake hjem. Bare én løve per felt; du kan ikke lande på din egen.</span></li>'
-      + '<li><img class="ic" data-ic="ankh" alt=""><span><b>Ankh ☥ = trygt felt:</b> en løve her kan ikke slås hjem – den sperrer feltet for motstanderen.</span></li>'
-      + '<li><img class="ic" data-ic="eye" alt=""><span><b>Horus’ øye</b> (gyllent øye): reflekstest. Treffer du kobraens hjerteslag = +3 felt. Bom = ingenting skjer.</span></li>'
-      + '<li><img class="ic" data-ic="sting" alt=""><span><b>Stikk</b> (rød brodd): reflekstest. Treff = ingen straff. Bom = 3 felt tilbake (til nærmeste ledige felt).</span></li>'
-      + '<li><img class="ic" data-ic="reed" alt=""><span>Ingen mulige trekk = du mister trekket.</span></li></ul>'
-      + '<p>Partiet lagres automatisk – last inn siden på nytt og spill videre.</p>'
+      + '<p>Brettet er en sammenrullet gullkobra med 30 skjell. Hver spiller har 3 løver, som starter på startfeltet (hjem) ved halen (ytterst) og løper mot hodet i midten.</p>'
+      + '<ul class="rcards">'
+      + '<li><img class="ic" data-ic="sun" alt=""><span><b class="rh">Mål</b>Bli den første som får alle dine 3 løver inn i slangens hode. Vinneren får gudens nåde.</span></li>'
+      + '<li><img class="ic" data-ic="sticks" alt=""><span><b class="rh">Kast</b>Rist telefonen eller trykk «Kast». Du bruker 4 pinner:<ul class="rsub"><li>antall lyse sider = antall felt du flytter (1–4),</li><li>alle mørke = 5 felt.</li></ul>Slår du 4 eller 5, kaster du en gang til.</span></li>'
+      + '<li><img class="ic" data-ic="lion0" alt=""><span><b class="rh">Trekk</b>Trykk på en løve eller dra den med fingeren langs skjellene til det opplyste feltet. Løvene går ut fra start ved halen. For å komme inn i hodet holder det å slå så mange felt som mangler (eller flere).</span></li>'
+      + '<li><img class="ic" data-ic="lion1" alt=""><span><b class="rh">Slå hjem</b>Lander du på et felt der motstanderens løve står, går den tilbake til start. Bare én løve kan stå på hvert felt. Du kan ikke lande på et felt der din egen løve står.</span></li>'
+      + '<li><img class="ic" data-ic="ankh" alt=""><span><b class="rh">Ankh – trygt felt</b>En løve som står på et felt med Ankh-symbolet, kan ikke slås hjem. Den sperrer feltet for motstanderen.</span></li>'
+      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Horus’ øye</b>Det gylne øyet starter et reaksjonsspill. Treffer du kobraens hjerterytme, flytter du 3 ekstra felt. Bommer du, skjer det ingenting.</span></li>'
+      + '<li><img class="ic" data-ic="sting" alt=""><span><b class="rh">Skorpion</b>Et felt med skorpion starter et reaksjonsspill. Treffer du, unngår du stikket. Bommer du, går du 3 felt tilbake (er det feltet opptatt, til nærmeste ledige felt bak det, eller til start).</span></li>'
+      + '</ul>'
       + '<p class="about">Hefau (egyptisk ḥfꜣw – «slange») er et digitalt spill inspirert av det gamle egyptiske brettspillet mehen.</p>'
       + '<p class="about rr">© 2026 Stop60. Alle rettigheter forbeholdt.</p>'
   },
@@ -691,17 +693,16 @@ var T = {
     winT: 'Łaska boga!', winYou: 'Twoja duma lwów dotarła do głowy węża i odrodziła się. Wygrywasz!', winCpu: 'Komputer zdobył łaskę boga. Spróbuj jeszcze raz!',
     winP: '{name} zdobywa łaskę boga!', stYouWin: '<b>Wygrywasz!</b> Łaska boga jest Twoja.', winStats: 'Rzuty: {t} · Strącenia: {c} · Udane odruchy: {m}',
     rulesHtml: '<h2>Jak grać</h2>'
-      + '<p>Plansza to zwinięta złota kobra. Każdy gracz ma <b>3 lwy</b>. Startują z <b>pola startowego (dom)</b> przy ogonie (na zewnątrz) i biegną po 30 łuskach do <b>głowy</b> w środku.</p>'
-      + '<p><b>Cel:</b> jako pierwszy wprowadź wszystkie 3 lwy do głowy węża — zdobywasz łaskę boga.</p>'
-      + '<ul><li><img class="ic" data-ic="sticks" alt=""><span><b>Rzut:</b> potrząśnij telefonem lub naciśnij „Rzuć”. 4 patyczki: liczba jasnych stron = ruch (1–4), same ciemne = <b>5</b>.</span></li>'
-      + '<li><img class="ic" data-ic="sun" alt=""><span><b>4 lub 5</b> = dodatkowy rzut.</span></li>'
-      + '<li><img class="ic" data-ic="lion0" alt=""><span><b>Ruch:</b> stuknij lwa albo przeciągnij go palcem po łuskach do świecącego pola. Lwy z domu wchodzą od ogona. Do głowy wystarczy wyrzucić tyle lub więcej, ile brakuje.</span></li>'
-      + '<li><img class="ic" data-ic="lion1" alt=""><span><b>Strącanie:</b> gdy staniesz na polu z lwem rywala, wraca on do domu. Na jednym polu stoi tylko jeden lew; na własnego nie możesz stanąć.</span></li>'
-      + '<li><img class="ic" data-ic="ankh" alt=""><span><b>Ankh ☥ = pole bezpieczne:</b> lwa na nim nie da się strącić — blokuje to pole dla rywala.</span></li>'
-      + '<li><img class="ic" data-ic="eye" alt=""><span><b>Oko Horusa</b> (złote oko): mini-gra odruchu. Trafisz w rytm serca kobry = +3 pola. Pudło = nic się nie dzieje.</span></li>'
-      + '<li><img class="ic" data-ic="sting" alt=""><span><b>Użądlenie</b> (czerwone żądło): mini-gra odruchu. Trafisz = unikasz kary. Pudło = cofasz się o 3 pola (na najbliższe wolne).</span></li>'
-      + '<li><img class="ic" data-ic="reed" alt=""><span>Brak możliwego ruchu = tracisz ruch.</span></li></ul>'
-      + '<p>Partia zapisuje się automatycznie — po odświeżeniu strony grasz dalej.</p>'
+      + '<p>Plansza to zwinięta złota kobra z 30 łuskami. Każdy gracz ma 3 lwy, które startują z pola startowego (domu) przy ogonie (na zewnątrz) i biegną w kierunku głowy w środku.</p>'
+      + '<ul class="rcards">'
+      + '<li><img class="ic" data-ic="sun" alt=""><span><b class="rh">Cel</b>Jako pierwszy wprowadź wszystkie 3 swoje lwy do głowy węża. Zwycięzca zdobywa łaskę boga.</span></li>'
+      + '<li><img class="ic" data-ic="sticks" alt=""><span><b class="rh">Rzut</b>Potrząśnij telefonem lub naciśnij „Rzuć”. Używasz 4 patyczków:<ul class="rsub"><li>liczba jasnych stron = liczba pól do przesunięcia (1–4),</li><li>wszystkie ciemne = 5 pól.</li></ul>Jeśli wyrzucisz 4 lub 5, rzucasz jeszcze raz.</span></li>'
+      + '<li><img class="ic" data-ic="lion0" alt=""><span><b class="rh">Ruch</b>Stuknij lwa albo przeciągnij go palcem po łuskach do podświetlonego pola. Lwy wychodzą ze startu od strony ogona. Aby wejść do głowy, wystarczy wyrzucić tyle pól, ile brakuje (lub więcej).</span></li>'
+      + '<li><img class="ic" data-ic="lion1" alt=""><span><b class="rh">Strącanie</b>Jeśli staniesz na polu zajętym przez lwa przeciwnika, wraca on na start. Na jednym polu może stać tylko jeden lew. Nie możesz stanąć na polu zajętym przez własnego lwa.</span></li>'
+      + '<li><img class="ic" data-ic="ankh" alt=""><span><b class="rh">Ankh – pole bezpieczne</b>Lew stojący na polu z symbolem Ankh nie może zostać strącony. Blokuje to pole dla przeciwnika.</span></li>'
+      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Oko Horusa</b>Złote oko uruchamia mini-grę na refleks. Jeśli trafisz w rytm serca kobry, przesuwasz się o dodatkowe 3 pola. Jeśli spudłujesz, nic się nie dzieje.</span></li>'
+      + '<li><img class="ic" data-ic="sting" alt=""><span><b class="rh">Skorpion</b>Pole ze skorpionem uruchamia mini-grę na refleks. Jeśli trafisz, unikasz użądlenia. Jeśli spudłujesz, cofasz się o 3 pola (a gdy to pole jest zajęte – na najbliższe wolne pole za nim albo na start).</span></li>'
+      + '</ul>'
       + '<p class="about">Hefau (egip. ḥfꜣw — „wąż”) to cyfrowa gra inspirowana starożytną egipską grą planszową mehen.</p>'
       + '<p class="about rr">© 2026 Stop60. Wszelkie prawa zastrzeżone.</p>'
   },
@@ -732,17 +733,16 @@ var T = {
     winT: 'The god’s grace!', winYou: 'Your pride reached the serpent’s head and was reborn. You win!', winCpu: 'The computer earned the god’s grace. Try again!',
     winP: '{name} earns the god’s grace!', stYouWin: '<b>You win!</b> The god’s grace is yours.', winStats: 'Throws: {t} · Captures: {c} · Reflex hits: {m}',
     rulesHtml: '<h2>How to play</h2>'
-      + '<p>The board is a coiled golden cobra. Each player has <b>3 lions</b>. They start on the <b>start square (home)</b> by the tail (outside) and race along 30 scales to the <b>head</b> in the centre.</p>'
-      + '<p><b>Goal:</b> be first to bring all 3 lions into the serpent’s head — you earn the god’s grace.</p>'
-      + '<ul><li><img class="ic" data-ic="sticks" alt=""><span><b>Throw:</b> shake your phone or press “Throw”. 4 sticks: number of light sides = move (1–4), all dark = <b>5</b>.</span></li>'
-      + '<li><img class="ic" data-ic="sun" alt=""><span><b>4 or 5</b> = extra throw.</span></li>'
-      + '<li><img class="ic" data-ic="lion0" alt=""><span><b>Move:</b> tap a lion or drag it with your finger along the scales to the glowing scale. Lions at home enter at the tail. To enter the head, any throw equal to or above the remaining distance is enough.</span></li>'
-      + '<li><img class="ic" data-ic="lion1" alt=""><span><b>Capturing:</b> land on an opponent’s lion and it goes back home. Only one lion per scale; you cannot land on your own lion.</span></li>'
-      + '<li><img class="ic" data-ic="ankh" alt=""><span><b>Ankh ☥ = safe scale:</b> a lion there cannot be captured — it blocks that scale for the opponent.</span></li>'
-      + '<li><img class="ic" data-ic="eye" alt=""><span><b>Eye of Horus</b> (gold eye): reflex mini-game. Hit the cobra’s heartbeat = +3 steps. Miss = nothing happens.</span></li>'
-      + '<li><img class="ic" data-ic="sting" alt=""><span><b>Sting</b> (red stinger): reflex mini-game. Hit = no penalty. Miss = back 3 steps (to the nearest free scale).</span></li>'
-      + '<li><img class="ic" data-ic="reed" alt=""><span>No legal move = you lose the move.</span></li></ul>'
-      + '<p>The match saves automatically — reload the page and keep playing.</p>'
+      + '<p>The board is a coiled golden cobra with 30 scales. Each player has 3 lions, which start on the start square (home) by the tail (outside) and race towards the head in the centre.</p>'
+      + '<ul class="rcards">'
+      + '<li><img class="ic" data-ic="sun" alt=""><span><b class="rh">Goal</b>Be the first to bring all 3 of your lions into the snake’s head. The winner earns the god’s grace.</span></li>'
+      + '<li><img class="ic" data-ic="sticks" alt=""><span><b class="rh">Throw</b>Shake your phone or press “Throw”. You use 4 sticks:<ul class="rsub"><li>number of light sides = number of squares to move (1–4),</li><li>all dark = 5 squares.</li></ul>If you throw 4 or 5, you throw again.</span></li>'
+      + '<li><img class="ic" data-ic="lion0" alt=""><span><b class="rh">Move</b>Tap a lion or drag it with your finger along the scales to the highlighted square. Lions leave the start from the tail end. To enter the head, it is enough to throw as many squares as are missing (or more).</span></li>'
+      + '<li><img class="ic" data-ic="lion1" alt=""><span><b class="rh">Capturing</b>If you land on a square occupied by an opponent’s lion, it goes back to the start. Only one lion may stand on a square. You cannot land on a square occupied by your own lion.</span></li>'
+      + '<li><img class="ic" data-ic="ankh" alt=""><span><b class="rh">Ankh – safe square</b>A lion standing on a square with the Ankh symbol cannot be captured. It blocks that square for the opponent.</span></li>'
+      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Eye of Horus</b>The golden eye starts a reflex mini-game. If you hit the beat of the cobra’s heart, you move 3 extra squares. If you miss, nothing happens.</span></li>'
+      + '<li><img class="ic" data-ic="sting" alt=""><span><b class="rh">Scorpion</b>A square with a scorpion starts a reflex mini-game. If you hit, you avoid the sting. If you miss, you go back 3 squares (if that square is taken, to the nearest free square behind it, or to the start).</span></li>'
+      + '</ul>'
       + '<p class="about">Hefau (Egyptian ḥfꜣw — “snake”) is a digital game inspired by the ancient Egyptian board game mehen.</p>'
       + '<p class="about rr">© 2026 Stop60. All rights reserved.</p>'
   }

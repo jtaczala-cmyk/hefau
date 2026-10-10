@@ -645,7 +645,7 @@ var T = {
     noMove: 'Ingen trekk', captured: 'Slått hjem!', capturedSub: 'løven går tilbake til halen',
     reachedHead: 'Løven nådde hodet!', throwFirst: 'Kast pinnene først', cantMove: 'Denne løven kan ikke flytte',
     dragHint: 'Dra helt til det lysende feltet', pickHint: 'Trykk på en lysende løve eller et felt',
-    eyeT: 'Horus’ øye', eyeTxt: 'Trykk akkurat når gullringen treffer skarabeen – i takt med kobraens hjerteslag. Treff: +3 felt.',
+    eyeT: 'Horus’ øye', eyeTxt: 'Trykk akkurat når gullringen treffer skarabeen – i takt med kobraens hjerteslag. Treff: opptil +3 felt.',
     stingT: 'Stikk!', stingTxt: 'Trykk akkurat når ringen treffer skarabeen. Treff: ingen straff. Bom: løven går 3 felt tilbake.',
     perfect: 'Perfekt!', early: 'For tidlig!', late: 'For sent!', getReady: 'Gjør deg klar … kjenn rytmen', cpuTries: '{name} prøver …',
     eyeWin: 'Horus’ øye: +{n}!', eyeFail: 'Øyet lukker seg – ingen bonus', eyeBlocked: 'Bonusen er blokkert',
@@ -660,7 +660,7 @@ var T = {
       + '<li><img class="ic" data-ic="lion0" alt=""><span><b class="rh">Trekk</b>Trykk på en løve eller dra den med fingeren langs skjellene til det opplyste feltet. Løvene går ut fra start ved halen. For å komme inn i hodet holder det å slå så mange felt som mangler (eller flere).</span></li>'
       + '<li><img class="ic" data-ic="lion1" alt=""><span><b class="rh">Slå hjem</b>Lander du på et felt der motstanderens løve står, går den tilbake til start. Bare én løve kan stå på hvert felt. Du kan ikke lande på et felt der din egen løve står.</span></li>'
       + '<li><img class="ic" data-ic="ankh" alt=""><span><b class="rh">Ankh – trygt felt</b>En løve som står på et felt med Ankh-symbolet, kan ikke slås hjem. Den sperrer feltet for motstanderen.</span></li>'
-      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Horus’ øye</b>Det gylne øyet starter et reaksjonsspill. Treffer du kobraens hjerterytme, flytter du 3 ekstra felt. Bommer du, skjer det ingenting.</span></li>'
+      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Horus’ øye</b>Det gylne øyet starter et reaksjonsspill. Treffer du kobraens hjerterytme, flytter du opptil 3 felt ekstra. Bommer du, skjer det ingenting.</span></li>'
       + '<li><img class="ic" data-ic="sting" alt=""><span><b class="rh">Skorpion</b>Et felt med skorpion starter et reaksjonsspill. Treffer du, unngår du stikket. Bommer du, går du 3 felt tilbake (er det feltet opptatt, til nærmeste ledige felt bak det, eller til start).</span></li>'
       + '</ul>'
       + '<p class="about">Hefau (egyptisk ḥfꜣw – «slange») er et digitalt spill inspirert av det gamle egyptiske brettspillet mehen.</p>'
@@ -685,7 +685,7 @@ var T = {
     noMove: 'Brak ruchu', captured: 'Strącony do domu!', capturedSub: 'lew wraca na ogon węża',
     reachedHead: 'Lew w głowie węża!', throwFirst: 'Najpierw rzuć patyczkami', cantMove: 'Ten lew nie może się ruszyć',
     dragHint: 'Przeciągnij aż do świecącego pola', pickHint: 'Stuknij świecącego lwa lub pole',
-    eyeT: 'Oko Horusa', eyeTxt: 'Stuknij dokładnie, gdy złoty pierścień dotknie skarabeusza — w rytm serca kobry. Sukces: +3 pola.',
+    eyeT: 'Oko Horusa', eyeTxt: 'Stuknij dokładnie, gdy złoty pierścień dotknie skarabeusza — w rytm serca kobry. Sukces: do +3 pól.',
     stingT: 'Użądlenie!', stingTxt: 'Stuknij dokładnie, gdy pierścień dotknie skarabeusza. Sukces: unikasz kary. Porażka: lew cofa się o 3 pola.',
     perfect: 'Idealnie!', early: 'Za wcześnie!', late: 'Za późno!', getReady: 'Uwaga… wyczuj rytm', cpuTries: '{name} próbuje…',
     eyeWin: 'Oko Horusa: +{n}!', eyeFail: 'Oko się zamyka — bez bonusu', eyeBlocked: 'Bonus zablokowany',
@@ -700,7 +700,7 @@ var T = {
       + '<li><img class="ic" data-ic="lion0" alt=""><span><b class="rh">Ruch</b>Stuknij lwa albo przeciągnij go palcem po łuskach do podświetlonego pola. Lwy wychodzą ze startu od strony ogona. Aby wejść do głowy, wystarczy wyrzucić tyle pól, ile brakuje (lub więcej).</span></li>'
       + '<li><img class="ic" data-ic="lion1" alt=""><span><b class="rh">Strącanie</b>Jeśli staniesz na polu zajętym przez lwa przeciwnika, wraca on na start. Na jednym polu może stać tylko jeden lew. Nie możesz stanąć na polu zajętym przez własnego lwa.</span></li>'
       + '<li><img class="ic" data-ic="ankh" alt=""><span><b class="rh">Ankh – pole bezpieczne</b>Lew stojący na polu z symbolem Ankh nie może zostać strącony. Blokuje to pole dla przeciwnika.</span></li>'
-      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Oko Horusa</b>Złote oko uruchamia mini-grę na refleks. Jeśli trafisz w rytm serca kobry, przesuwasz się o dodatkowe 3 pola. Jeśli spudłujesz, nic się nie dzieje.</span></li>'
+      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Oko Horusa</b>Złote oko uruchamia mini-grę na refleks. Jeśli trafisz w rytm serca kobry, przesuwasz się o dodatkowe do 3 pól. Jeśli spudłujesz, nic się nie dzieje.</span></li>'
       + '<li><img class="ic" data-ic="sting" alt=""><span><b class="rh">Skorpion</b>Pole ze skorpionem uruchamia mini-grę na refleks. Jeśli trafisz, unikasz użądlenia. Jeśli spudłujesz, cofasz się o 3 pola (a gdy to pole jest zajęte – na najbliższe wolne pole za nim albo na start).</span></li>'
       + '</ul>'
       + '<p class="about">Hefau (egip. ḥfꜣw — „wąż”) to cyfrowa gra inspirowana starożytną egipską grą planszową mehen.</p>'
@@ -725,7 +725,7 @@ var T = {
     noMove: 'No move', captured: 'Sent home!', capturedSub: 'the lion returns to the tail',
     reachedHead: 'Lion reached the head!', throwFirst: 'Throw the sticks first', cantMove: 'This lion cannot move',
     dragHint: 'Drag all the way to the glowing scale', pickHint: 'Tap a glowing lion or scale',
-    eyeT: 'Eye of Horus', eyeTxt: 'Tap exactly when the gold ring touches the scarab — on the cobra’s heartbeat. Success: +3 steps.',
+    eyeT: 'Eye of Horus', eyeTxt: 'Tap exactly when the gold ring touches the scarab — on the cobra’s heartbeat. Success: up to +3 squares.',
     stingT: 'Sting!', stingTxt: 'Tap exactly when the ring touches the scarab. Success: no penalty. Failure: the lion moves back 3 steps.',
     perfect: 'Perfect!', early: 'Too early!', late: 'Too late!', getReady: 'Get ready… feel the rhythm', cpuTries: '{name} is trying…',
     eyeWin: 'Eye of Horus: +{n}!', eyeFail: 'The eye closes — no bonus', eyeBlocked: 'Bonus blocked',
@@ -740,7 +740,7 @@ var T = {
       + '<li><img class="ic" data-ic="lion0" alt=""><span><b class="rh">Move</b>Tap a lion or drag it with your finger along the scales to the highlighted square. Lions leave the start from the tail end. To enter the head, it is enough to throw as many squares as are missing (or more).</span></li>'
       + '<li><img class="ic" data-ic="lion1" alt=""><span><b class="rh">Capturing</b>If you land on a square occupied by an opponent’s lion, it goes back to the start. Only one lion may stand on a square. You cannot land on a square occupied by your own lion.</span></li>'
       + '<li><img class="ic" data-ic="ankh" alt=""><span><b class="rh">Ankh – safe square</b>A lion standing on a square with the Ankh symbol cannot be captured. It blocks that square for the opponent.</span></li>'
-      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Eye of Horus</b>The golden eye starts a reflex mini-game. If you hit the beat of the cobra’s heart, you move 3 extra squares. If you miss, nothing happens.</span></li>'
+      + '<li><img class="ic" data-ic="eye" alt=""><span><b class="rh">Eye of Horus</b>The golden eye starts a reflex mini-game. If you hit the beat of the cobra’s heart, you move up to 3 extra squares. If you miss, nothing happens.</span></li>'
       + '<li><img class="ic" data-ic="sting" alt=""><span><b class="rh">Scorpion</b>A square with a scorpion starts a reflex mini-game. If you hit, you avoid the sting. If you miss, you go back 3 squares (if that square is taken, to the nearest free square behind it, or to the start).</span></li>'
       + '</ul>'
       + '<p class="about">Hefau (Egyptian ḥfꜣw — “snake”) is a digital game inspired by the ancient Egyptian board game mehen.</p>'

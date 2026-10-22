@@ -536,7 +536,7 @@ var MC = (function () {
   }
   var PROB = { 1: 4 / 16, 2: 6 / 16, 3: 4 / 16, 4: 1 / 16, 5: 1 / 16 };
   function kind(pos) { if (SAFE.indexOf(pos) >= 0) return 'safe'; if (EYE.indexOf(pos) >= 0) return 'eye'; if (STING.indexOf(pos) >= 0) return 'sting'; return 'plain'; }
-  function newGame(mode, diff) {
+  function newGame(mode, diff) {window.StopWisdom&&StopWisdom.hide();
     return { v: 1, mode: mode, diff: diff || 'hard', lions: [[0, 0, 0], [0, 0, 0]], turn: 0, phase: 'roll', roll: null, sticks: null,
       mini: null, winner: null, turns: 0, caps: [0, 0], minis: [0, 0], last: null, startedAt: Date.now() };
   }
@@ -2622,5 +2622,7 @@ if (DEBUG) { window.HEFAU.net = function () { return { on: NET.on, host: NET.hos
   window.HEFAU.netKill = function () { try { NET.ws.close(); } catch (e) {} }; window.HEFAU.netLeave = function () { netLeave(); }; }
 })();
 </script>
+<script src="https://stop60.no/assets/wisdom.js" defer></script>
+<script>addEventListener("load",function(){window.StopWisdom&&StopWisdom.show({before:document.getElementById("mContinue")})});</script>
 </body>
 </html>

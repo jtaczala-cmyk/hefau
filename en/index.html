@@ -435,7 +435,7 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
     <div id="status"></div>
     <button id="rollBtn" data-t="roll">Rzuć</button>
   </section>
-  <footer id="foot">© 2026 Stop60 · All rights reserved<span id="fPrivW" hidden> · <a class="privl" id="fPriv" href="personvern/" data-t="privacy">Personvern</a></span></footer>
+  <footer id="foot">© 2026 Stop60 · All rights reserved<span id="fPrivW" hidden> · <a class="privl" id="fPriv" href="/hefau/personvern/" data-t="privacy">Personvern</a></span></footer>
 </div>
 
 <div class="ov" id="menu" hidden><div class="card">
@@ -809,7 +809,7 @@ function applyLang() {
   $('langBtn').textContent = prefs.lang.toUpperCase(); $('langBtn').setAttribute('aria-label', 'Language / Språk / Język: ' + LANG_NAME[prefs.lang]);
   document.title = LAUNCH ? { no: 'Hefau – Slangespiralen | Gratis brettspill i nettleseren', pl: 'Hefau – Spirala Węża | Darmowa gra planszowa w przeglądarce', en: 'Hefau – The Serpent Spiral | Free board game in your browser' }[prefs.lang]
     : { no: 'Hefau – Slangespiralen — testversjon', pl: 'Hefau – Spirala Węża — wersja testowa', en: 'Hefau – The Serpent Spiral — test version' }[prefs.lang];
-  var privHref = gameBase() + { no: 'personvern/', pl: 'prywatnosc/', en: 'en/privacy/' }[prefs.lang];
+  var privHref = gameBase() + { no: 'personvern/', pl: 'personvern/', en: 'en/privacy/' }[prefs.lang];
   $('fPrivW').hidden = !LAUNCH; $('fPriv').href = privHref;
   $('rulesCard').innerHTML = t('rulesHtml') + '<button class="btn gold" id="rClose">' + t('close') + '</button>' + (LAUNCH ? '<p class="rpriv">© 2026 Stop60 · <a class="privl" id="rPriv" href="' + privHref + '">' + t('privacy') + '</a></p>' : '');
   $('rClose').onclick = function () { hide('rules'); };

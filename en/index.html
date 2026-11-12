@@ -426,16 +426,16 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
     <div class="pl" data-p="1"><img class="av" alt="" /><div class="pinfo"><div class="nm"><span class="pn"></span></div><div class="tray"></div><div class="prog"><i></i></div></div></div>
   </section>
   <section id="boardWrap">
-    <div id="stage"><canvas id="bgL" class="lay"></canvas><canvas id="ringL" class="lay"></canvas><canvas id="bodyL" class="lay"></canvas><canvas id="sunL"></canvas><div id="cobra" aria-hidden="true"><canvas id="cbHood"></canvas><div id="cbShine"></div><canvas id="cbTongue"></canvas><canvas id="cbHead"></canvas><canvas id="cbEyes"></canvas></div><div id="plStart" class="plaque" aria-hidden="true"><b data-t="plStartA">START</b><small data-t="plStartB"></small></div><div id="plGoal" class="plaque" aria-hidden="true"><b data-t="plGoalA"></b><small data-t="plGoalB"></small></div><canvas id="board"></canvas><div id="netBar" hidden><i></i><span></span></div></div>
+    <div id="stage"><canvas id="bgL" class="lay"></canvas><canvas id="ringL" class="lay"></canvas><canvas id="bodyL" class="lay"></canvas><canvas id="sunL"></canvas><div id="cobra" aria-hidden="true"><canvas id="cbHood"></canvas><div id="cbShine"></div><canvas id="cbTongue"></canvas><canvas id="cbHead"></canvas><canvas id="cbEyes"></canvas></div><div id="plStart" class="plaque" aria-hidden="true"><b data-t="plStartA">START</b><small data-t="plStartB">HOME</small></div><div id="plGoal" class="plaque" aria-hidden="true"><b data-t="plGoalA">GOAL</b><small data-t="plGoalB">HEAD</small></div><canvas id="board"></canvas><div id="netBar" hidden><i></i><span></span></div></div>
     <div id="throwFx"><canvas id="throwCv" width="720" height="343"></canvas></div>
     <div id="banner"></div>
     <div id="hint"></div>
   </section>
   <section id="bar">
     <div id="status"></div>
-    <button id="rollBtn" data-t="roll">Rzuć</button>
+    <button id="rollBtn" data-t="roll">Throw</button>
   </section>
-  <footer id="foot">© 2026 Stop60 · All rights reserved<span id="fPrivW" hidden> · <a class="privl" id="fPriv" href="/hefau/personvern/" data-t="privacy">Personvern</a></span></footer>
+  <footer id="foot">© 2026 Stop60 · All rights reserved<span id="fPrivW" hidden> · <a class="privl" id="fPriv" href="/hefau/personvern/" data-t="privacy">Privacy</a></span></footer>
 </div>
 
 <div class="ov" id="menu" hidden><div class="card">
@@ -443,49 +443,50 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
   <div id="menuLogo"><img class="wing" src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 64%22%3E%3Cdefs%3E %3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff0b5%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%23f2c14e%22/%3E%3Cstop offset=%221%22 stop-color=%22%238a5c10%22/%3E%3C/linearGradient%3E %3CradialGradient id=%22r%22 cx=%22.4%22 cy=%22.35%22 r=%22.7%22%3E%3Cstop offset=%220%22 stop-color=%22%23ffb08a%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23d0301c%22/%3E%3Cstop offset=%221%22 stop-color=%22%235a0a04%22/%3E%3C/radialGradient%3E%3C/defs%3E %3Cg id=%22w%22%3E%3Cpath d=%22M104 26C78 10 40 6 6 12C34 20 66 28 104 36Z%22 fill=%22url(%23g)%22/%3E %3Cpath d=%22M104 34C76 24 42 22 10 26C38 34 68 42 104 44Z%22 fill=%22%2322b5a2%22 stroke=%22%23f2c14e%22 stroke-width=%221%22/%3E %3Cpath d=%22M104 42C78 38 46 38 18 41C44 48 72 52 104 52Z%22 fill=%22%231d47b8%22 stroke=%22%23f2c14e%22 stroke-width=%221%22/%3E %3Cg stroke=%22%23f2c14e%22 stroke-width=%22.9%22 opacity=%22.9%22%3E%3Cpath d=%22M30 28L26 40M44 30L40 44M58 33L55 47M72 36L70 49M86 38L85 50%22/%3E%3C/g%3E%3C/g%3E %3Cuse href=%22%23w%22 transform=%22translate(240 0) scale(-1 1)%22/%3E %3Cpath d=%22M106 40c-4-6 2-10 0-16c-1-4 4-5 5-1M134 40c4-6-2-10 0-16c1-4-4-5-5-1%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%223%22 stroke-linecap=%22round%22/%3E %3Ccircle cx=%22120%22 cy=%2230%22 r=%2213%22 fill=%22url(%23r)%22 stroke=%22%23ffe39a%22 stroke-width=%222%22/%3E%3C/svg%3E" alt="" />
     <h1 class="hlogo" aria-label="Hefau"><span class="cart" aria-hidden="true"><i>𓎛𓆑𓄿𓅱𓆙</i></span><span class="hword">HEFAU</span></h1>
     <img class="snk" src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 18%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 x2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%238a5c10%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%23ffe39a%22/%3E%3Cstop offset=%221%22 stop-color=%22%23f2c14e%22/%3E%3C/linearGradient%3E%3C/defs%3E %3Cpath d=%22M2 10C20 4 34 4 52 10S86 16 104 10S138 4 156 10S180 14 192 10%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%223%22 stroke-linecap=%22round%22/%3E %3Cpath d=%22M188 9c2-7 12-8 16-3c3 4 0 9-5 9c-5 1-9-1-11-6z%22 fill=%22url(%23g)%22/%3E%3Cpath d=%22M200 6c6-2 14 0 16 4c-3 3-10 4-15 2z%22 fill=%22%23f2c14e%22 stroke=%22%238a5c10%22 stroke-width=%22.8%22/%3E %3Ccircle cx=%22208%22 cy=%229%22 r=%221.2%22 fill=%22%232ff0d6%22/%3E%3Cpath d=%22M194 8h8%22 stroke=%22%231d47b8%22 stroke-width=%221.6%22/%3E%3C/svg%3E" alt="" /></div>
-  <div class="sub" data-t="subtitle">Spirala Węża</div><div class="lotus"></div>
-  <button class="btn gold" id="mContinue" hidden><span class="bt"><span data-t="continue">Kontynuuj partię</span><small id="mContInfo"></small></span></button>
+  <div class="sub" data-t="subtitle">The Serpent Spiral</div>
+  <p class="seo-lead" style="margin:12px 0 4px;line-height:1.55;font-size:0.95rem;max-width:36rem">Hefau is a free board game inspired by ancient Egypt. Race three lions along a coiled golden cobra to its head. Play the computer, two on one phone, or online – no app, no account, on stop60.no.</p><div class="lotus"></div>
+  <button class="btn gold" id="mContinue" hidden><span class="bt"><span data-t="continue">Continue match</span><small id="mContInfo"></small></span></button>
   <div class="row">
-    <button class="btn" id="mEasy"><span data-t="vsAI">Z komputerem</span><small data-t="easy">łatwy</small></button>
-    <button class="btn" id="mHard"><span data-t="vsAI">Z komputerem</span><small data-t="hard">trudny</small></button>
+    <button class="btn" id="mEasy"><span data-t="vsAI">vs Computer</span><small data-t="easy">easy</small></button>
+    <button class="btn" id="mHard"><span data-t="vsAI">vs Computer</span><small data-t="hard">hard</small></button>
   </div>
-  <div class="row"><button class="btn" id="m2p"><img class="ic2" alt="" /><span class="bt"><span data-t="twoP">2 graczy</span><small data-t="twoPsub">na jednym telefonie</small></span><img class="ic3" alt="" /></button>
-  <button class="btn" id="mOnline"><span class="bt"><span data-t="online">Online</span><small data-t="onlineSub">2 telefony</small></span></button></div>
-  <div id="mShareRow"><button type="button" class="qrfig" id="mQr"><span class="qrsvg" id="mQrSvg"></span><small data-t="qrLabel">Zeskanuj i zagraj</small></button>
-    <div class="col"><button class="btn gold" id="mShare"><svg class="shico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="share">Udostępnij grę</span></button><button class="btn" id="mRules" data-t="howTo">Jak grać</button></div></div>
+  <div class="row"><button class="btn" id="m2p"><img class="ic2" alt="" /><span class="bt"><span data-t="twoP">2 players</span><small data-t="twoPsub">on one phone</small></span><img class="ic3" alt="" /></button>
+  <button class="btn" id="mOnline"><span class="bt"><span data-t="online">Online</span><small data-t="onlineSub">2 phones</small></span></button></div>
+  <div id="mShareRow"><button type="button" class="qrfig" id="mQr"><span class="qrsvg" id="mQrSvg"></span><small data-t="qrLabel">Scan &amp; play</small></button>
+    <div class="col"><button class="btn gold" id="mShare"><svg class="shico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="share">Share the game</span></button><button class="btn" id="mRules" data-t="howTo">How to play</button></div></div>
   <div class="glyphs" id="menuGlyphs"></div>
 </div></div>
 
 <div class="ov" id="share" hidden><div class="card" style="text-align:center">
-  <h2 data-t="share">Udostępnij grę</h2>
-  <p data-t="shareTxt" style="margin:2px 0 8px"></p>
+  <h2 data-t="share">Share the game</h2>
+  <p data-t="shareTxt" style="margin:2px 0 8px">Scan the code with a phone camera to open the game.</p>
   <div id="qrBox"></div>
   <div id="shareUrl"></div>
-  <div class="row"><button class="btn gold" id="sNative" data-t="shareBtn"></button><button class="btn" id="sCopy" data-t="copy"></button></div>
-  <button class="btn" id="sClose" data-t="close2"></button>
+  <div class="row"><button class="btn gold" id="sNative" data-t="shareBtn">Share…</button><button class="btn" id="sCopy" data-t="copy">Copy link</button></div>
+  <button class="btn" id="sClose" data-t="close2">Close</button>
 </div></div>
 
 <div class="ov" id="online" hidden><div class="card" style="text-align:center">
-  <h2 data-t="onT">Online</h2>
+  <h2 data-t="onT">Play online</h2>
   <div id="onStart">
-    <p data-t="onTxt" style="margin:2px 0 10px"></p>
-    <button class="btn gold" id="onCreate" data-t="create"></button>
-    <div class="sep2" data-t="orJoin"></div>
-    <div class="row"><input id="onCode" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" /><button class="btn" id="onJoin" data-t="join"></button></div>
+    <p data-t="onTxt" style="margin:2px 0 10px">Play a friend, each on your own phone. One of you creates a room, the other scans the QR code or enters the code.</p>
+    <button class="btn gold" id="onCreate" data-t="create">Create room</button>
+    <div class="sep2" data-t="orJoin">– or join a room –</div>
+    <div class="row"><input id="onCode" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" /><button class="btn" id="onJoin" data-t="join">Join</button></div>
   </div>
   <div id="onRoom" hidden>
-    <p data-t="roomTxt" style="margin:2px 0 6px"></p>
+    <p data-t="roomTxt" style="margin:2px 0 6px">Ask your friend to scan the QR code with the camera, or enter the code:</p>
     <div id="roomQr"></div>
     <div id="roomCode"></div>
-    <div class="row"><button class="btn" id="onShare" data-t="shareBtn"></button><button class="btn" id="onCopy" data-t="copy"></button></div>
+    <div class="row"><button class="btn" id="onShare" data-t="shareBtn">Share…</button><button class="btn" id="onCopy" data-t="copy">Copy link</button></div>
   </div>
   <div id="onStatus" aria-live="polite"></div>
-  <button class="btn" id="onClose" data-t="close2"></button>
+  <button class="btn" id="onClose" data-t="close2">Close</button>
 </div></div>
 
 <div class="ov" id="netMsg" hidden><div class="card" style="text-align:center">
   <h2 id="netMsgT"></h2><p id="netMsgP"></p>
-  <button class="btn gold" id="netMsgMenu" data-t="toMenu"></button>
+  <button class="btn gold" id="netMsgMenu" data-t="toMenu">Menu</button>
 </div></div>
 
 <div class="ov" id="rules" hidden><div class="card" id="rulesCard"></div></div>
@@ -495,7 +496,7 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
   <p id="miniTxt" style="text-align:center;margin:2px 0"></p>
   <canvas id="miniCv" width="520" height="520"></canvas>
   <div id="miniMsg"></div>
-  <button class="btn gold" id="miniTap" data-t="tap">STUK!</button>
+  <button class="btn gold" id="miniTap" data-t="tap">TAP!</button>
 </div></div>
 
 <div class="ov" id="win" hidden><canvas id="confetti"></canvas><div class="card">
@@ -504,20 +505,20 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
   <canvas id="winCv" width="400" height="236"></canvas>
   <h2 id="winTitle"></h2>
   <p id="winTxt"></p>
-  <div id="winShare"><button type="button" class="qrfig" id="wQr"><span class="qrsvg" id="wQrSvg"></span></button><div class="col"><small data-t="qrShare">Zeskanuj i zagraj — podaj dalej</small><button class="btn" id="wShare"><svg class="shico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="share">Udostępnij grę</span></button></div></div>
-  <button class="btn gold" id="wAgain" data-t="again">Zagraj ponownie</button>
+  <div id="winShare"><button type="button" class="qrfig" id="wQr"><span class="qrsvg" id="wQrSvg"></span></button><div class="col"><small data-t="qrShare">Scan &amp; play — pass it on</small><button class="btn" id="wShare"><svg class="shico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="share">Share the game</span></button></div></div>
+  <button class="btn gold" id="wAgain" data-t="again">Play again</button>
   <button class="btn" id="wMenu" data-t="toMenu">Menu</button>
 </div></div>
 
 <div id="intro" hidden aria-hidden="true">
   <canvas id="iBg"></canvas><canvas id="iCv"></canvas><img id="iWing" src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 64%22%3E%3Cdefs%3E %3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff0b5%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%23f2c14e%22/%3E%3Cstop offset=%221%22 stop-color=%22%238a5c10%22/%3E%3C/linearGradient%3E %3CradialGradient id=%22r%22 cx=%22.4%22 cy=%22.35%22 r=%22.7%22%3E%3Cstop offset=%220%22 stop-color=%22%23ffb08a%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23d0301c%22/%3E%3Cstop offset=%221%22 stop-color=%22%235a0a04%22/%3E%3C/radialGradient%3E%3C/defs%3E %3Cg id=%22w%22%3E%3Cpath d=%22M104 26C78 10 40 6 6 12C34 20 66 28 104 36Z%22 fill=%22url(%23g)%22/%3E %3Cpath d=%22M104 34C76 24 42 22 10 26C38 34 68 42 104 44Z%22 fill=%22%2322b5a2%22 stroke=%22%23f2c14e%22 stroke-width=%221%22/%3E %3Cpath d=%22M104 42C78 38 46 38 18 41C44 48 72 52 104 52Z%22 fill=%22%231d47b8%22 stroke=%22%23f2c14e%22 stroke-width=%221%22/%3E %3Cg stroke=%22%23f2c14e%22 stroke-width=%22.9%22 opacity=%22.9%22%3E%3Cpath d=%22M30 28L26 40M44 30L40 44M58 33L55 47M72 36L70 49M86 38L85 50%22/%3E%3C/g%3E%3C/g%3E %3Cuse href=%22%23w%22 transform=%22translate(240 0) scale(-1 1)%22/%3E %3Cpath d=%22M106 40c-4-6 2-10 0-16c-1-4 4-5 5-1M134 40c4-6-2-10 0-16c1-4-4-5-5-1%22 fill=%22none%22 stroke=%22url(%23g)%22 stroke-width=%223%22 stroke-linecap=%22round%22/%3E %3Ccircle cx=%22120%22 cy=%2230%22 r=%2213%22 fill=%22url(%23r)%22 stroke=%22%23ffe39a%22 stroke-width=%222%22/%3E%3C/svg%3E" alt="" hidden />
-  <div id="iSound" data-t="introSound">Trykk for lyd</div>
-  <button id="iSkip" data-t="introSkip">Hopp over</button>
+  <div id="iSound" data-t="introSound">Tap for sound</div>
+  <button id="iSkip" data-t="introSkip">Skip</button>
 </div>
 
 <div class="ov" id="confirm" hidden><div class="card" style="text-align:center">
-  <p data-t="confirmNew">Zacząć nową partię? Obecna zostanie utracona.</p>
-  <div class="row"><button class="btn" id="cNo" data-t="no">Nie</button><button class="btn gold" id="cYes" data-t="yes">Tak</button></div>
+  <p data-t="confirmNew">Start a new match? The current one will be lost.</p>
+  <div class="row"><button class="btn" id="cNo" data-t="no">No</button><button class="btn gold" id="cYes" data-t="yes">Yes</button></div>
 </div></div>
 
 <script>
@@ -675,7 +676,7 @@ function normLang(l) { l = String(l || '').toLowerCase(); if (/^(nb|nn|no)\b/.te
 function browserLang() { var ls = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || '']); for (var i = 0; i < ls.length; i++) { var l = normLang(ls[i]); if (l) return l; } return 'no'; }
 var prefs = { lang: browserLang(), mute: false };
 try { var pr = JSON.parse(localStorage.getItem(PREF_KEY) || 'null'); if (pr) { if (normLang(pr.lang)) prefs.lang = normLang(pr.lang); prefs.mute = !!pr.mute; } } catch (e) {}
-if (LANGDIR && !(function () { try { return localStorage.getItem(PREF_KEY); } catch (e) { return null; } })()) prefs.lang = LANGDIR;
+if (LANGDIR) prefs.lang = LANGDIR;
 (function () { var m = /[?&]lang=([a-z]{2})/i.exec(location.search); if (m && normLang(m[1])) prefs.lang = normLang(m[1]); })();
 function savePrefs() { try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} }
 

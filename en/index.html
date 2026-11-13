@@ -167,13 +167,17 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 #miniMsg{min-height:24px;font-family:var(--disp);font-weight:800;font-size:18px;letter-spacing:1px;color:var(--gold2)}
 #miniTxt{font-size:13.5px!important;color:var(--mut)!important}
 /* win */
-#win .card{text-align:center;overflow:hidden}
+#win .card{text-align:center;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
 #winRays{position:absolute;left:50%;top:92px;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;pointer-events:none;
   background:repeating-conic-gradient(from 0deg,#f2c14e30 0deg 7deg,transparent 7deg 20deg);-webkit-mask:radial-gradient(closest-side,#000 10%,transparent 75%);mask:radial-gradient(closest-side,#000 10%,transparent 75%);animation:spin 24s linear infinite}
 #winCv{position:relative;width:200px;height:118px;display:block;margin:0 auto}
 #confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:21}
 #winTitle{font-size:30px!important;position:relative}
 #winTxt{position:relative}
+#winGrid{display:block;position:relative;box-sizing:border-box;width:100%;margin:8px 0 2px;padding:8px 10px;background:#070402;border:1px solid #f2c14e66;border-radius:12px;font:600 15px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;word-break:break-word;text-align:center;letter-spacing:.01em;cursor:pointer;color:var(--txt)}
+#winGrid[hidden]{display:none}
+#winGrid:focus-visible{outline:2px solid #f2c14e;outline-offset:2px}
+#wScoreShare{position:relative}
 .key{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:4px;border:1px solid #5cf5a8}
 #dbg{position:fixed;left:4px;bottom:calc(64px + var(--sab));z-index:30;font:10px monospace;background:#200;color:#f88;padding:2px 5px;border-radius:5px;opacity:.7;pointer-events:none}
 /* ===== Hefau: ancient Egyptian skin (gold, lapis, turquoise, carnelian, sand, black) ===== */
@@ -522,6 +526,8 @@ body.introOn #app,body.introOn .ov{visibility:hidden}
   <canvas id="winCv" width="400" height="236"></canvas>
   <h2 id="winTitle"></h2>
   <p id="winTxt"></p>
+  <pre id="winGrid" hidden></pre>
+  <button type="button" class="btn" id="wScoreShare" data-t="shareScore">Share result</button>
   <div id="winShare"><button type="button" class="qrfig" id="wQr"><span class="qrsvg" id="wQrSvg"></span></button><div class="col"><small data-t="qrShare">Scan &amp; play — pass it on</small><button class="btn" id="wShare"><svg class="shico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="share">Share the game</span></button></div></div>
   <button class="btn gold" id="wAgain" data-t="again">Play again</button>
   <button class="btn" id="wMenu" data-t="toMenu">Menu</button>
@@ -702,7 +708,7 @@ var T = {
     online: "Online", onlineSub: "2 telefoner", onT: "Spill online", onTxt: "Spill mot en venn på hver sin telefon. Den ene oppretter et rom, den andre skanner QR-koden eller skriver inn koden.", create: "Opprett rom", orJoin: "– eller bli med i et rom –", join: "Bli med", roomTxt: "Be vennen din skanne QR-koden med kameraet, eller skrive inn koden:", waitOpp: "Venter på motstander …", connecting: "Kobler til …", oppJoined: "Motstanderen er med!", oppLost: "Motstanderen mistet forbindelsen – venter …", oppBack: "Motstanderen er tilbake", oppLeftT: "Motstanderen forlot spillet", oppLeftP: "Partiet ble avsluttet. Du kan starte et nytt fra menyen.", netLost: "Ingen forbindelse – prøver igjen …", noRoom: "Fant ikke rommet – sjekk koden og at vennen din har rommet åpent.", roomFull: "Rommet er allerede fullt.", badCode: "Koden har 5 tegn.", opp: "Motstander", yourTurn: "Din tur", oppTurn: "Motstanderens tur", stOpp: "<b>Motstanderen</b> kaster …", winOpp: "Motstanderen fikk gudens nåde. Revansj?", modeOnline: "online", netErr: "Kunne ikke koble til. Sjekk internett og prøv igjen.",
     sndLbl: 'Lyd',
     introSkip: 'Hopp over', introSound: 'Trykk for lyd',
-    qrLabel: 'Skann og spill', qrShare: 'Skann og spill – del videre', share: 'Del spillet', shareTxt: 'Skann koden med kameraet på telefonen for å åpne spillet.', shareBtn: 'Del …', copy: 'Kopier lenke', copied: 'Kopiert!', close2: 'Lukk',
+    qrLabel: 'Skann og spill', qrShare: 'Skann og spill – del videre', share: 'Del spillet', shareScore: 'Del resultatet', shareWho: 'Vinner: {name}', shareTxt: 'Skann koden med kameraet på telefonen for å åpne spillet.', shareBtn: 'Del …', copy: 'Kopier lenke', copied: 'Kopiert!', close2: 'Lukk',
     subtitle: 'Slangespiralen', privacy: 'Personvern', test: 'TESTVERSJON', roll: 'Kast', continue: 'Fortsett partiet', vsAI: 'Mot datamaskinen', easy: 'lett', hard: 'vanskelig',
     twoP: '2 spillere', twoPsub: 'på én telefon', howTo: 'Slik spiller du', tap: 'TRYKK!', again: 'Spill igjen', toMenu: 'Meny',
     confirmNew: 'Starte et nytt parti? Det nåværende går tapt.', no: 'Nei', yes: 'Ja', close: 'Skjønner',
@@ -742,7 +748,7 @@ var T = {
     online: "Online", onlineSub: "2 telefony", onT: "Gra online", onTxt: "Zagraj ze znajomym, każdy na swoim telefonie. Jedna osoba tworzy pokój, druga skanuje kod QR albo wpisuje kod.", create: "Utwórz pokój", orJoin: "– albo dołącz do pokoju –", join: "Dołącz", roomTxt: "Poproś znajomego o zeskanowanie kodu QR aparatem albo wpisanie kodu:", waitOpp: "Czekam na przeciwnika…", connecting: "Łączenie…", oppJoined: "Przeciwnik dołączył!", oppLost: "Przeciwnik stracił połączenie – czekam…", oppBack: "Przeciwnik wrócił", oppLeftT: "Przeciwnik opuścił grę", oppLeftP: "Partia została zakończona. Nową możesz zacząć z menu.", netLost: "Brak połączenia – ponawiam…", noRoom: "Nie znaleziono pokoju – sprawdź kod i czy znajomy ma otwarty pokój.", roomFull: "Pokój jest już pełny.", badCode: "Kod ma 5 znaków.", opp: "Przeciwnik", yourTurn: "Twój ruch", oppTurn: "Ruch przeciwnika", stOpp: "<b>Przeciwnik</b> rzuca…", winOpp: "Przeciwnik otrzymał łaskę boga. Rewanż?", modeOnline: "online", netErr: "Nie udało się połączyć. Sprawdź internet i spróbuj ponownie.",
     sndLbl: 'Dźwięk',
     introSkip: 'Pomiń', introSound: 'Dotknij, aby włączyć dźwięk',
-    qrLabel: 'Zeskanuj i zagraj', qrShare: 'Zeskanuj i zagraj — podaj dalej', share: 'Udostępnij grę', shareTxt: 'Zeskanuj kod aparatem telefonu, aby otworzyć grę.', shareBtn: 'Udostępnij…', copy: 'Kopiuj link', copied: 'Skopiowano!', close2: 'Zamknij',
+    qrLabel: 'Zeskanuj i zagraj', qrShare: 'Zeskanuj i zagraj — podaj dalej', share: 'Udostępnij grę', shareScore: 'Udostępnij wynik', shareWho: 'Zwycięzca: {name}', shareTxt: 'Zeskanuj kod aparatem telefonu, aby otworzyć grę.', shareBtn: 'Udostępnij…', copy: 'Kopiuj link', copied: 'Skopiowano!', close2: 'Zamknij',
     subtitle: 'Spirala Węża', test: 'WERSJA TESTOWA', privacy: 'Prywatność', roll: 'Rzuć', continue: 'Kontynuuj partię', vsAI: 'Z komputerem', easy: 'łatwy', hard: 'trudny',
     twoP: '2 graczy', twoPsub: 'na jednym telefonie', howTo: 'Jak grać', tap: 'STUK!', again: 'Zagraj ponownie', toMenu: 'Menu',
     confirmNew: 'Zacząć nową partię? Obecna zostanie utracona.', no: 'Nie', yes: 'Tak', close: 'Rozumiem',
@@ -782,7 +788,7 @@ var T = {
     online: "Online", onlineSub: "2 phones", onT: "Play online", onTxt: "Play a friend, each on your own phone. One of you creates a room, the other scans the QR code or enters the code.", create: "Create room", orJoin: "– or join a room –", join: "Join", roomTxt: "Ask your friend to scan the QR code with the camera, or enter the code:", waitOpp: "Waiting for opponent…", connecting: "Connecting…", oppJoined: "Opponent joined!", oppLost: "Opponent lost connection – waiting…", oppBack: "Opponent is back", oppLeftT: "Your opponent left the game", oppLeftP: "The match has ended. You can start a new one from the menu.", netLost: "No connection – retrying…", noRoom: "Room not found – check the code and that your friend still has the room open.", roomFull: "That room is already full.", badCode: "The code has 5 characters.", opp: "Opponent", yourTurn: "Your turn", oppTurn: "Opponent's turn", stOpp: "<b>Opponent</b> is throwing…", winOpp: "Your opponent won the god’s favour. Rematch?", modeOnline: "online", netErr: "Could not connect. Check your internet and try again.",
     sndLbl: 'Sound',
     introSkip: 'Skip', introSound: 'Tap for sound',
-    qrLabel: 'Scan & play', qrShare: 'Scan & play — pass it on', share: 'Share the game', shareTxt: 'Scan the code with a phone camera to open the game.', shareBtn: 'Share…', copy: 'Copy link', copied: 'Copied!', close2: 'Close',
+    qrLabel: 'Scan & play', qrShare: 'Scan & play — pass it on', share: 'Share the game', shareScore: 'Share result', shareWho: 'Winner: {name}', shareTxt: 'Scan the code with a phone camera to open the game.', shareBtn: 'Share…', copy: 'Copy link', copied: 'Copied!', close2: 'Close',
     subtitle: 'The Serpent Spiral', privacy: 'Privacy', test: 'TEST VERSION', roll: 'Throw', continue: 'Continue match', vsAI: 'vs Computer', easy: 'easy', hard: 'hard',
     twoP: '2 players', twoPsub: 'on one phone', howTo: 'How to play', tap: 'TAP!', again: 'Play again', toMenu: 'Menu',
     confirmNew: 'Start a new match? The current one will be lost.', no: 'No', yes: 'Yes', close: 'Got it',
@@ -832,6 +838,7 @@ function applyLang() {
   $('rulesCard').innerHTML = t('rulesHtml') + '<button class="btn gold" id="rClose">' + t('close') + '</button>' + (LAUNCH ? '<p class="rpriv">© 2026 Stop60 · <a class="privl" id="rPriv" href="' + privHref + '">' + t('privacy') + '</a></p>' : '');
   $('rClose').onclick = function () { hide('rules'); };
   if (typeof iconURL === 'function') $('rulesCard').querySelectorAll('img[data-ic]').forEach(function (im) { im.src = iconURL(im.getAttribute('data-ic')); });
+  if (S && S.winner != null && $('win') && !$('win').hidden) paintWinText();
 }
 
 /* ---------------- audio ---------------- */
@@ -2103,8 +2110,7 @@ function confetti(colors) {
 function showWin(seq) {
   if (!S || S.winner == null) return;
   var w = S.winner, human = isOnline() ? w === NET.me : !(S.mode === 'ai' && w === 1);
-  $('winTitle').textContent = t('winT');
-  $('winTxt').innerHTML = (S.mode === 'ai' ? (w === 0 ? t('winYou') : t('winCpu')) : isOnline() ? (w === NET.me ? t('winYou') : t('winOpp')) : t('winP', { name: pname(w) })) + '<br><small style="color:var(--mut)">' + t('winStats', { t: S.rolls || S.turns, c: S.caps[w], m: S.minis[w] }) + '</small>';
+  paintWinText();
   var c = $('winCv').getContext('2d'); c.clearRect(0, 0, 400, 236);
   c.save(); c.shadowColor = '#f2c14e'; c.shadowBlur = 22; drawAnkh(c, 82, 104, 58, '#ffe39a'); drawAnkh(c, 318, 104, 58, '#ffe39a'); c.restore();
   c.save(); c.shadowColor = LP[w].glow; c.shadowBlur = 30; c.beginPath(); c.arc(200, 118, 92, 0, 7); c.fillStyle = 'rgba(0,0,0,.01)'; c.fill(); c.restore();
@@ -2160,6 +2166,50 @@ function qrSVG(text) { var q = qrcode(0, 'M'); q.addData(text); q.make(); var n 
   return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + (n + 2 * m) + ' ' + (n + 2 * m) + '" shape-rendering="crispEdges" role="img" aria-label="QR"><path d="' + path + '" fill="#1a1005"/></svg>'; }
 function copyText(txt) { return (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(txt) : Promise.reject()).catch(function () {
   var ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); }); }
+/* Spoiler-free match postcard: one lion per throw (10, then ×N). Winner plus the totals already on the card. Clean root path — no query, no UTM, no /en/ or /pl/. */
+function scoreEmojiBar(n, ch) { n = Math.max(0, Math.floor(+n || 0)); if (n <= 0) return '\u2B1B'; if (n <= 10) return new Array(n + 1).join(ch); return new Array(11).join(ch) + '\u00d7' + n; }
+function scoreSharePath() { return String(gameURL() || '').replace(/^[a-z][a-z0-9+.-]*:\/\//i, '').replace(/\/+$/, '').split('?')[0].split('#')[0]; }
+function scoreShareText() {
+  var w = S && S.winner != null ? S.winner : 0;
+  var throws = S ? (S.rolls || S.turns || 0) : 0;
+  var caps = S && S.caps ? (S.caps[w] || 0) : 0;
+  var minis = S && S.minis ? (S.minis[w] || 0) : 0;
+  return 'Hefau\n' + scoreEmojiBar(throws, '\uD83E\uDD81') + '\n' + t('shareWho', { name: S ? pname(w) : '' }) + '\n' + t('winStats', { t: throws, c: caps, m: minis }) + '\n' + scoreSharePath();
+}
+function paintWinGrid() {
+  var grid = $('winGrid'); if (!grid || !S || S.winner == null) return;
+  grid.textContent = scoreShareText(); grid.hidden = false; grid.setAttribute('aria-label', t('shareScore'));
+}
+function paintWinText() {
+  if (!S || S.winner == null) return;
+  var w = S.winner;
+  $('winTitle').textContent = t('winT');
+  $('winTxt').innerHTML = (S.mode === 'ai' ? (w === 0 ? t('winYou') : t('winCpu')) : isOnline() ? (w === NET.me ? t('winYou') : t('winOpp')) : t('winP', { name: pname(w) })) + '<br><small style="color:var(--mut)">' + t('winStats', { t: S.rolls || S.turns, c: S.caps[w], m: S.minis[w] }) + '</small>';
+  var shareBtn = $('wScoreShare'); if (shareBtn) shareBtn.textContent = t('shareScore');
+  paintWinGrid();
+}
+(function () {
+  var grid = $('winGrid'); if (!grid || grid.getAttribute('data-bound')) return;
+  grid.setAttribute('data-bound', '1'); grid.setAttribute('role', 'button'); grid.tabIndex = 0;
+  function go() { var b = $('wScoreShare'); if (b) b.click(); }
+  grid.addEventListener('click', go);
+  grid.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+})();
+function shareMatchResult() {
+  var b = $('wScoreShare'); if (!b) return;
+  var txt = scoreShareText();
+  b.textContent = t('shareScore');
+  function copied() { b.textContent = t('copied'); setTimeout(function () { if (b.textContent === t('copied')) b.textContent = t('shareScore'); }, 1600); try { track('share-score'); } catch (e2) {} }
+  function copy() { copyText(txt).then(copied); }
+  if (navigator.share) {
+    try {
+      var p = navigator.share({ title: 'Hefau', text: txt });
+      if (p && p.then) p.then(function () { try { track('share-score'); } catch (e2) {} }).catch(function (e) { if (!e || e.name !== 'AbortError') copy(); });
+      else copy();
+    } catch (e) { if (!e || e.name !== 'AbortError') copy(); }
+  } else copy();
+}
+if ($('wScoreShare')) $('wScoreShare').onclick = shareMatchResult;
 function openShare() { var u = gameURL(); $('qrBox').innerHTML = qrSVG(u); $('shareUrl').textContent = u; $('sNative').hidden = !navigator.share; $('sCopy').textContent = t('copy'); show('share'); }
 $('mShare').onclick = openShare; $('mQr').onclick = openShare; $('wShare').onclick = openShare; $('wQr').onclick = openShare;
 function paintShareQr() { var s = qrSVG(gameURL()); ['mQrSvg', 'wQrSvg'].forEach(function (id) { var e = $(id); if (e && !e.firstChild) e.innerHTML = s; }); ['mQr', 'wQr'].forEach(function (id) { $(id).setAttribute('aria-label', t('share') + ' – QR: ' + gameURL()); }); }
@@ -2419,7 +2469,7 @@ async function winSequence() {
 }
 buildFxSprites();
 /* ---------------- analytics (launch build only): GoatCounter, cookie-free, self-hosted count.js (ISC) ----------------
-   same setup as the other Stop60 games: one page view per load (/hefau/, /hefau/pl/, /hefau/en/) + events hefau-start / hefau-finish.
+   same setup as the other Stop60 games: one page view per load (/hefau/, /hefau/pl/, /hefau/en/) + events hefau-start / hefau-finish / hefau-share-score.
    Events go out after a random 0–15 s delay (no exact timing), pending ones are flushed when the page is hidden. Off in test builds and with ?debug=1 (unless &gctest=1, used by tools/launchverify.js). */
 var GC_CODE = 'jtaczala-games', gcOn = LAUNCH && (!DEBUG || /[?&]gctest=1/.test(location.search)), gcPend = [];
 if (gcOn) {

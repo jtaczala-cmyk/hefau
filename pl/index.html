@@ -1010,6 +1010,19 @@ var LP = [
   { rim: ['#fff6cf', '#f2c14e', '#b07a1c', '#4a2c04'], disk: ['#7a4508', '#2c1602'], st1: '#ffd36a', st2: '#7a3e06', face: ['#ffe8b0', '#eaa83c', '#8a5210'], dark: '#2a1300', eye: '#3a1a00', glow: '#ffb53a' },
   { rim: ['#e2feff', '#46d6e8', '#1b5fa8', '#071f46'], disk: ['#2152b8', '#0a1f5a'], st1: '#4fe6f0', st2: '#173e9e', face: ['#c4fff6', '#3fc9cf', '#0e5a6e'], dark: '#03212c', eye: '#021820', glow: '#2fd8e8' }
 ];
+/* Christmas: the lions wear a knitted Christmas sweater, 15.11-26.12 only (?xmas=1 / ?xmas=0 to test); set XMAS_SWEATER = false to remove */
+var XMAS_SWEATER = (function () { try { var q = new URLSearchParams(location.search).get('xmas'); if (q === '1') return true; if (q === '0') return false; } catch (e) {} var d = new Date(), m = d.getMonth(), day = d.getDate(); return (m === 10 && day >= 15) || (m === 11 && day <= 26); })();
+function lionSweater(c, R, p) {
+  var base = p ? '#1f8a4c' : '#c8283a', rib = p ? '#156638' : '#9c1a29';
+  c.save(); c.beginPath(); c.arc(0, 0, R * 0.84, 0, 7); c.clip();
+  c.beginPath(); c.moveTo(-R, R * 0.5); c.quadraticCurveTo(0, R * 0.62, R, R * 0.5); c.lineTo(R, R); c.lineTo(-R, R); c.closePath(); c.fillStyle = base; c.fill();
+  c.beginPath(); c.moveTo(-R, R * 0.5); c.quadraticCurveTo(0, R * 0.62, R, R * 0.5); c.lineTo(R, R * 0.58); c.quadraticCurveTo(0, R * 0.7, -R, R * 0.58); c.closePath(); c.fillStyle = rib; c.fill();
+  c.strokeStyle = 'rgba(255,255,255,.35)'; c.lineWidth = R * 0.018; for (var x = -R * 0.8; x <= R * 0.8; x += R * 0.07) { var yc = R * 0.5 + R * 0.06 * (1 - (x * x) / (R * R)); c.beginPath(); c.moveTo(x, yc + R * 0.01); c.lineTo(x, yc + R * 0.075); c.stroke(); }
+  c.fillStyle = '#fff'; for (var z = -R * 0.84; z < R * 0.84; z += R * 0.12) { c.beginPath(); c.moveTo(z, R * 0.8); c.lineTo(z + R * 0.06, R * 0.73); c.lineTo(z + R * 0.12, R * 0.8); c.lineTo(z + R * 0.06, R * 0.76); c.closePath(); c.fill(); }
+  c.strokeStyle = '#fff'; c.lineWidth = Math.max(1, R * 0.022); c.lineCap = 'round';
+  [-0.32, 0, 0.32].forEach(function (fx) { var cx0 = fx * R, cy0 = R * 0.69 + (fx ? 0 : R * 0.01); for (var k = 0; k < 3; k++) { var a = k * Math.PI / 3; c.beginPath(); c.moveTo(cx0 - Math.cos(a) * R * 0.04, cy0 - Math.sin(a) * R * 0.04); c.lineTo(cx0 + Math.cos(a) * R * 0.04, cy0 + Math.sin(a) * R * 0.04); c.stroke(); } });
+  c.restore();
+}
 function paintLion(c, R, p) {
   var P = LP[p], g;
   c.save();
@@ -1049,6 +1062,7 @@ function paintLion(c, R, p) {
   c.fillStyle = P.dark; c.beginPath(); c.moveTo(-R * 0.08, R * 0.1); c.lineTo(R * 0.08, R * 0.1); c.lineTo(0, R * 0.2); c.closePath(); c.fill();
   c.strokeStyle = P.dark; c.lineWidth = R * 0.03; c.beginPath(); c.moveTo(0, R * 0.2); c.lineTo(0, R * 0.27); c.moveTo(-R * 0.1, R * 0.32); c.quadraticCurveTo(0, R * 0.26, R * 0.1, R * 0.32); c.stroke();
   c.fillStyle = P.dark; [-1, 1].forEach(function (d) { for (var q = 0; q < 3; q++) { c.beginPath(); c.arc(d * (R * 0.1 + q * R * 0.035), R * 0.22 + (q % 2) * R * 0.03, R * 0.012, 0, 7); c.fill(); } });
+  if (XMAS_SWEATER) lionSweater(c, R, p);
   // gloss
   c.strokeStyle = 'rgba(255,255,255,.55)'; c.lineWidth = R * 0.06; c.beginPath(); c.arc(0, 0, R * 0.92, Math.PI * 1.05, Math.PI * 1.45); c.stroke();
   c.restore();
@@ -2696,5 +2710,6 @@ if (DEBUG) { window.HEFAU.net = function () { return { on: NET.on, host: NET.hos
 <style>.s60about{display:none;position:fixed;inset:0;z-index:2147483000;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;overscroll-behavior:contain;background:rgba(10,9,12,.97);color:#f3efe6;font:400 16px/1.55 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-user-select:text;user-select:text;text-align:left;padding:max(18px,env(safe-area-inset-top)) 18px 48px}.s60about:target{display:block}.s60about .in{max-width:680px;margin:0 auto}.s60about h2{font-size:1.45em;line-height:1.2;margin:.4em 0 .5em}.s60about h3{font-size:1.08em;margin:1.3em 0 .35em}.s60about p,.s60about li{margin:.35em 0}.s60about ul{padding-left:1.2em;margin:.3em 0}.s60about a{color:#ffd36b;text-decoration:underline;text-underline-offset:2px}.s60about .x{display:inline-block;margin:0 0 6px;padding:8px 14px;border:1px solid #ffd36b;border-radius:999px;text-decoration:none;font-weight:700}.s60about .x.b{margin-top:22px}</style>
 <section class="s60about" id="o-grze" lang="pl" aria-label="O grze Hefau – Spirala Węża" onpointerdown="event.stopPropagation()" ontouchstart="event.stopPropagation()" onkeydown="event.stopPropagation()"><div class="in"><a class="x" href="#">✕ Wróć do gry</a><h2>O grze Hefau – Spirala Węża</h2><p>Hefau to darmowa gra planszowa dla dwojga, w którą grasz od razu w przeglądarce. Inspiracją jest mehen – jedna z najstarszych znanych gier planszowych ze starożytnego Egiptu, w której pionki wędrują po ciele zwiniętego węża. Tutaj ścigasz się trzema złotymi lwami od ogona kobry do jej głowy: z komputerem (łatwy lub trudny), z kimś obok na jednym telefonie albo online, każdy na swoim telefonie.</p><h3>Jak grać</h3><ul><li>Plansza to zwinięta złota kobra z 30 łuskami. Twoje trzy lwy zaczynają w domu przy ogonie.</li><li>Potrząśnij telefonem albo naciśnij „Rzuć”. O ruchu decydują cztery patyczki: liczba jasnych stron to liczba pól (1–4), a same ciemne strony to 5. Po rzucie 4 lub 5 rzucasz jeszcze raz.</li><li>Dotknij lwa albo przeciągnij go po łuskach na podświetlone pole. Jeśli staniesz na lwie przeciwnika, wraca on do domu.</li><li>Pole z Ankh jest bezpieczne: lwa, który na nim stoi, nie można zbić.</li><li>Oko Horusa i skorpion uruchamiają krótką grę na refleks. Stuknij w rytm bicia serca kobry, aby zyskać do 3 dodatkowych pól albo uniknąć ukłucia, które cofa cię do tyłu.</li></ul><h3>Kto wygrywa?</h3><p>Wygrywa ten, kto pierwszy wprowadzi wszystkie trzy lwy do głowy węża i zdobędzie łaskę boga. Partia trwa zwykle 5–10 minut.</p><h3>Warto wiedzieć</h3><ul><li>Za darmo, bez reklam, bez konta i bez instalacji.</li><li>Działa na telefonie, tablecie i komputerze – w pionie i w poziomie.</li><li>Partia zapisuje się na urządzeniu, więc możesz dokończyć ją później.</li></ul><h3>Inne języki</h3><p><a href="/hefau/" hreflang="nb" lang="nb">Hefau på norsk</a> · <a href="/hefau/en/" hreflang="en" lang="en">Hefau in English</a> · <a href="/hefau/pl/" hreflang="pl" lang="pl">Hefau po polsku</a></p><h3>Więcej darmowych gier na Stop60</h3><p><a href="/logikk/pl/">Czysta logika – codzienna łamigłówka liczbowa</a> · <a href="/ufobang/pl/">Ufobang – kosmiczna gra zręcznościowa</a> · <a href="/robaki/">Robaki – 60 sekund za kierownicą</a></p><p>Wszystkie gry po polsku: <a href="/pl/">Stop60 – darmowe gry w przeglądarce</a>.</p><a class="x b" href="#">✕ Wróć do gry</a></div></section>
 <script src="/assets/s60-back.js?v=2" data-game="hefau" data-pos="tl" data-end="after:#wMenu|in:#menu .card" defer></script>
+<script src="/assets/s60-cameo.js?v=1" data-game="hefau" data-block=".ov,#intro" data-ls="hefau_test_prefs_v3:mute" data-top="60" defer></script>
 </body>
 </html>
